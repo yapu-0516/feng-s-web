@@ -1,0 +1,320 @@
+spec_version: "1.0"
+
+meta:
+  title: "长征万里，薪火千秋・页面自适应器乐组曲"
+  style_layer: "mc-style-cinematic"
+  style_layers: []
+  fusion_note: ""
+  key: "D minor"
+  mode: "aeolian"
+  meter: "4/4"
+  tempo: 62
+  tempo_map:
+    - {bar: 1, bpm: 62}
+    - {bar: 9, bpm: 78}
+    - {bar: 17, bpm: 46}
+    - {bar: 24, bpm: 64}
+    - {bar: 32, bpm: 112}
+    - {bar: 41, bpm: 52}
+    - {bar: 49, bpm: 44}
+    - {bar: 57, bpm: 82}
+    - {bar: 65, bpm: 68}
+    - {bar: 73, bpm: 84}
+    - {bar: 80, bpm: 72}
+  target_duration: "5:27"
+  deliverable: [full_mix]
+  upstream:
+    brief: "《长征万里，薪火千秋》网页七段行军长卷与人物、留言、结语页面"
+    lyrics: {}
+    picture: {}
+
+intent:
+  one_thing: "用一支不断变形的星火动机，把七个行军节点串成从告别到会师的听觉路程"
+  reference_pair:
+    - {track: "光未然、冼星海《黄河大合唱》", borrow: "只借进行鼓点与铜管齐奏的推进方式，不引用旋律"}
+    - {track: "谭盾《卧虎藏龙》配乐", borrow: "只借民乐独奏与低音弦乐之间的留白和音色并置，不引用旋律"}
+  listener_situation: "桌面或手机浏览网页时低注意力循环聆听；音乐必须让标题和史料文字保持清晰"
+  emotional_arc:
+    - {section: I, mood: "夜色中等待出发", value: 3}
+    - {section: A1, mood: "告别与坚定", value: 5}
+    - {section: A2, mood: "牺牲与克制", value: 2}
+    - {section: B1, mood: "灯下重新校准方向", value: 4}
+    - {section: C1, mood: "急行与机动", value: 8}
+    - {section: D1, mood: "雪线以上的缺氧与坚忍", value: 5}
+    - {section: D2, mood: "草地中的迷雾与互助", value: 3}
+    - {section: C2, mood: "会师的昂扬", value: 9}
+    - {section: E, mood: "人物叙事的亲近", value: 5}
+    - {section: F, mood: "留言汇聚的明亮", value: 7}
+    - {section: O, mood: "火炬再出发", value: 8}
+
+material:
+  motif: "D4-F4-A4-G4，小三度上行、大三度上行、大二度回落；八分、八分、四分、八分的四音动机，长度一小节"
+  motif_abc: "L:1/8 D2 F2 A2 G2 |"
+  character: "克制的上行后回落，像一步迈出又定住"
+  stated_in: [I, A1]
+  development_mode: "加工处理"
+
+form:
+  - id: I
+    name: Intro
+    bars: 8
+    start_bar: 1
+    harmony: "|i |bVI |bIII |bVII |i |bVI |bIII |bVII |"
+    harmony_letters: "|Dm |Bb |F |C |Dm |Bb |F |C |"
+    melody_register: "中"
+    development: "vary"
+    energy: 3
+    events: [dizi_lead_in, low_strings_in, bass_pulse_in]
+    note: "首页封面；星火动机原型首次出现"
+  - id: A1
+    name: Verse
+    bars: 8
+    start_bar: 9
+    harmony: "|i |bVI |bIII |V7 |i |bVI |bVII |V7 |"
+    harmony_letters: "|Dm |Bb |F |A7 |Dm |Bb |C |A7 |"
+    melody_register: "中"
+    development: "repeat"
+    energy: 5
+    events: [war_drum_in]
+    note: "于都河；动机原样陈述，鼓点给出行军步伐"
+  - id: A2
+    name: Verse
+    bars: 7
+    start_bar: 17
+    harmony: "|i |bVI |#Idim7 |iv7 |V7 |i |V7 |"
+    harmony_letters: "|Dm |Bb |F#dim7 |Gm7 |A7 |Dm |A7 |"
+    melody_register: "低"
+    development: "fragment+vary"
+    energy: 2
+    events: []
+    note: "湘江；七小节刻意不落整八，动机下行裁截并在 F#dim7 处失去稳定"
+  - id: B1
+    name: Bridge
+    bars: 8
+    start_bar: 24
+    harmony: "|bVI |bIII |iv7 |V7 |bVI |bIII |iv7 |V7 |"
+    harmony_letters: "|Bb |F |Gm7 |A7 |Bb |F |Gm7 |A7 |"
+    melody_register: "中高"
+    development: "fragment"
+    energy: 4
+    events: [pluck_in]
+    note: "遵义；从动机中只留 D-F 两音，像灯下逐字读信"
+  - id: C1
+    name: Chorus
+    bars: 9
+    start_bar: 32
+    harmony: "|i |bVI |bVII |V7 |i |bVI |bVII |V7 |i |"
+    harmony_letters: "|Dm |Bb |C |A7 |Dm |Bb |C |A7 |Dm |"
+    melody_register: "中高"
+    development: "sequence+extend"
+    energy: 8
+    events: []
+    note: "四渡赤水；九小节连续推进，速度升至 112 BPM"
+  - id: D1
+    name: Breakdown
+    bars: 8
+    start_bar: 41
+    harmony: "|bVImaj7 |iv7 |i |V7 |bVImaj7 |iv7 |i |V7 |"
+    harmony_letters: "|Bbmaj7 |Gm7 |Dm |A7 |Bbmaj7 |Gm7 |Dm |A7 |"
+    melody_register: "高"
+    development: "augment"
+    energy: 5
+    events: [glass_bell_in]
+    note: "夹金山；动机宽放到高音钟琴，鼓点稀疏"
+  - id: D2
+    name: Breakdown
+    bars: 8
+    start_bar: 49
+    harmony: "|i |bVI |iv7 |V7 |i |bVI |iv7 |V7 |"
+    harmony_letters: "|Dm |Bb |Gm7 |A7 |Dm |Bb |Gm7 |A7 |"
+    melody_register: "低"
+    development: "contract"
+    energy: 3
+    events: []
+    note: "草地；动机减缩成三音和长音，连续的第二段 Breakdown 制造下沉"
+  - id: C2
+    name: Chorus
+    bars: 8
+    start_bar: 57
+    harmony: "|bIII |bVII |i |bVI |bIII |bVII |V7 |i |"
+    harmony_letters: "|F |C |Dm |Bb |F |C |A7 |Dm |"
+    melody_register: "中高"
+    development: "recap"
+    energy: 9
+    events: [brass_in]
+    note: "吴起镇；动力再现，铜管加入，首尾不再完全闭合"
+  - id: E
+    name: Instrumental
+    bars: 8
+    start_bar: 65
+    harmony: "|i |bVI |bIII |bVII |i |bVI |bIII |bVII |"
+    harmony_letters: "|Dm |Bb |F |C |Dm |Bb |F |C |"
+    melody_register: "中"
+    development: "vary+extend"
+    energy: 5
+    events: [pluck_out, glass_bell_out]
+    note: "人物专题；撤去钟琴，只留温暖拨奏与低音弦乐"
+  - id: F
+    name: Bridge
+    bars: 7
+    start_bar: 73
+    harmony: "|bIII |bVII |i |bVI |bIII |bVII |i |"
+    harmony_letters: "|F |C |Dm |Bb |F |C |Dm |"
+    melody_register: "高"
+    development: "sequence+fragment"
+    energy: 7
+    events: []
+    note: "星火留言；七小节高音琶音，像留言逐条点亮"
+  - id: O
+    name: Outro
+    bars: 10
+    start_bar: 80
+    harmony: "|i |bVI |bIII |V7 |bIII |bVII |i |bVI |V7 |i |"
+    harmony_letters: "|Dm |Bb |F |A7 |F |C |Dm |Bb |A7 |Dm |"
+    melody_register: "中高"
+    development: "recap+augment"
+    energy: 8
+    events: []
+    note: "结语；十小节动力再现，最后落在主和弦并保留号角余响"
+
+arrangement:
+  roster:
+    - id: dizi_lead
+      instrument: "竹笛质感合成独奏"
+      midi: {program: 73, bank: 0, channel: 1}
+      role: "旋律"
+      band: "中高"
+      entry: I
+      exit: end
+      timbre: "略带呼吸噪声的纯净长音，起音 70ms"
+      note: "纯音色前景；八度不叠满，确保文字阅读时不过度抢占"
+    - id: low_strings
+      instrument: "低音弦乐持续群"
+      midi: {program: 48, bank: 0, channel: 2}
+      role: "和声铺底"
+      band: "中低"
+      entry: I
+      exit: end
+      timbre: "暗色、慢起音、低频留空的弦乐长音"
+      note: "背景层；每个和弦改变时平滑过渡"
+    - id: pluck
+      instrument: "琵琶质感拨弦"
+      midi: {program: 107, bank: 0, channel: 3}
+      role: "织体"
+      band: "中高"
+      entry: B1
+      exit: E
+      timbre: "短衰减、带二倍泛音的木质拨弦"
+      note: "中景层；与钟琴错开音区"
+    - id: glass_bell
+      instrument: "玻璃钟琴"
+      midi: {program: 14, bank: 0, channel: 4}
+      role: "色彩"
+      band: "高"
+      entry: D1
+      exit: E
+      timbre: "高音区、长衰减、带非整数倍泛音的钟声"
+      note: "只用于雪山与星火，避免全曲高频疲劳"
+    - id: war_drum
+      instrument: "框鼓"
+      midi: {program: 0, bank: 0, channel: 10}
+      role: "律动"
+      band: "低频"
+      entry: A1
+      exit: end
+      timbre: "短促、低阻尼、无金属残响"
+      note: "节奏骨架；草地区段主动撤除"
+    - id: brass
+      instrument: "圆号群"
+      midi: {program: 61, bank: 0, channel: 6}
+      role: "记忆点"
+      band: "中高"
+      entry: C2
+      exit: end
+      timbre: "中音区暖铜管，起音略延迟"
+      note: "只在会师与终章进入，保证高潮来自结构而非音量"
+    - id: bass_pulse
+      instrument: "带泛音的合成低音"
+      midi: {program: 38, bank: 0, channel: 7}
+      role: "低频"
+      band: "低频"
+      entry: I
+      exit: end
+      timbre: "正弦基音叠加弱五度泛音，避免手机外放消失"
+      note: "与框鼓交织；草地段只保留极低频心跳"
+  depth_map: {dizi_lead: 前景, low_strings: 背景, pluck: 中景, glass_bell: 中景, war_drum: 背景, brass: 中景, bass_pulse: 背景}
+  bass_kick_relation: {mode: "交织式", detail: "行军段落框鼓重音与低音重合，句尾空拍处贝斯单独补位；草地区段只留低音心跳"}
+  spectrum_budget:
+    - {band: "低频", owner: "bass_pulse", competitors: [war_drum], resolution: "交织出现"}
+    - {band: "中低", owner: "low_strings", competitors: [brass], resolution: "错开音区"}
+    - {band: "中高", owner: "dizi_lead", competitors: [pluck, brass], resolution: "交替出现"}
+    - {band: "高", owner: "glass_bell", competitors: [dizi_lead], resolution: "交替出现"}
+  energy_curve: {I: 3, A1: 5, A2: 2, B1: 4, C1: 8, D1: 5, D2: 3, C2: 9, E: 5, F: 7, O: 8}
+  subtraction_events:
+    - {at: {section: D2, bar_offset: 0, beat: 1}, what: "撤去框鼓、拨弦和旋律两小节", why: "进入草地时用空间表现迷雾与失去方向"}
+    - {at: {section: E, bar_offset: 0, beat: 1}, what: "玻璃钟琴退出", why: "人物专题需要更近、更温暖的声音"}
+    - {at: {section: O, bar_offset: 8, beat: 1}, what: "旋律停在长音，只留低音和钟声余响", why: "把结尾交给观众的记忆而不是再次堆满"}
+  hooks:
+    arrangement_hook:
+      what: "D-F-A-G 四音星火动机，以不同音色、方向和时值贯穿全曲"
+      first_at: "I"
+      recurs_at: [A1, A2, B1, C1, D1, C2, O]
+      abc: "L:1/8 D2 F2 A2 G2 |"
+  groove:
+    feel: "straight"
+    quantize_policy: {war_drum: 100, dizi_lead: 72, pluck: 84, low_strings: 96}
+    push_pull:
+      - {part: "dizi_lead", offset_ms: -9, note: "旋律轻微抢拍，产生前行感"}
+      - {part: "pluck", offset_ms: 6, note: "拨弦略微拖后，形成木质回响"}
+      - {part: "low_strings", offset_ms: 18, note: "和声铺底略迟，避免与鼓点同时变硬"}
+    fill_policy:
+      bars: [8, 16, 23, 40, 56, 72, 79]
+      rationale: "只在页面和情绪转折处加入过门，间隔刻意不等距"
+
+mix_intent:
+  mood: "像在夜色中行军；音乐有纵深但不遮住文字，关键转折靠留白而非更响"
+  sound_stage:
+    - {id: dizi_lead, pan: -8, depth: 前景}
+    - {id: low_strings, pan: 0, depth: 背景}
+    - {id: pluck, pan: 28, depth: 中景}
+    - {id: glass_bell, pan: -32, depth: 中景}
+    - {id: war_drum, pan: 0, depth: 背景}
+    - {id: brass, pan: 12, depth: 中景}
+    - {id: bass_pulse, pan: 0, depth: 背景}
+  ducking_map:
+    - {section: I, who_yields: low_strings, band: "中高", to: dizi_lead}
+    - {section: E, who_yields: low_strings, band: "中高", to: pluck}
+  dynamics:
+    target_DR_dB: 12
+    notes:
+      - "D2 草地段比相邻 C2 低约 6 dB，母带必须保留这个落差"
+      - "A2 湘江与 D1 夹金山不用持续低频填满"
+  width_map: {I: medium, A1: medium, A2: narrow, B1: narrow, C1: wide, D1: wide, D2: narrow, C2: wide, E: medium, F: medium, O: wide}
+  loudness_target: "-16 LUFS integrated"
+
+render:
+  suno:
+    style_prompt: "instrumental cinematic suite, Chinese pentatonic flute, low string drone, pipa-like plucks, frame drum, glass bell, restrained transitions, readable background mix"
+    exclude: ["pop vocal", "epic trailer", "dubstep drop", "heavy brass wall", "fade out ending"]
+    knobs: {model: "", weirdness: "", style_influence: ""}
+  midi:
+    instrument_map: {}
+  musicxml:
+    lead_sheet: false
+    parts: [dizi_lead, low_strings, pluck, glass_bell, war_drum, brass, bass_pulse]
+  chordpro:
+    transpose: 0
+
+checks:
+  self_audit:
+    - "[x] one_thing 是单一路程，不是多个主题拼接"
+    - "[x] 两个参照分别只借推进方式与音色留白"
+    - "[x] 四音动机在不看谱时仍能辨认"
+    - "[x] 高音钟琴与低音草地区段形成明显音区对比"
+    - "[x] 留白在 D2 草地段与结语末两小节"
+  exemptions:
+    - {rule: 15, why: "纯器乐网页配乐，无 vocal.dynamics_by_section"}
+    - {rule: 16, why: "纯器乐网页配乐，无 vocal.chorus_variation"}
+
+messages:
+  - {from: music, to: sound, about: "mix_intent.dynamics", says: "草地与湘江段需要明显低于会师段，请在母带中保留落差", status: open}

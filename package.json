@@ -1,0 +1,14 @@
+{
+  "name": "long-march-living-scroll",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "《长征万里，薪火千秋》沉浸式网页设计竞赛作品",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

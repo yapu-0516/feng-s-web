@@ -1,0 +1,175 @@
+/* 长征万里，薪火千秋 · Foundation tokens
+   Philosophy: modern monumental archive. Restraint around one moving image. */
+
+:root {
+  color-scheme: dark;
+
+  /* Raw palette */
+  --red-900: #531313;
+  --red-700: #7d1d1d;
+  --red-500: #aa2a25;
+  --red-300: #df725c;
+  --gold-700: #7e5b2c;
+  --gold-500: #bc8d4b;
+  --gold-300: #efc67d;
+  --char-950: #0d0b0a;
+  --char-900: #15110f;
+  --char-800: #211a17;
+  --char-700: #362d28;
+  --paper-100: #f2eadc;
+  --paper-300: #d8c9b3;
+  --paper-500: #aa9780;
+
+  /* Semantic color */
+  --color-bg-primary: var(--char-950);
+  --color-bg-secondary: var(--char-900);
+  --color-bg-tertiary: var(--char-800);
+  --color-bg-inverse: var(--paper-100);
+  --color-text-primary: var(--paper-100);
+  --color-text-secondary: #cbbca8;
+  --color-text-tertiary: #9f8f7b;
+  --color-text-inverse: #1c1410;
+  --color-text-link: var(--gold-300);
+  --color-border-primary: rgb(239 198 125 / 0.34);
+  --color-border-secondary: rgb(239 198 125 / 0.16);
+  --color-border-focus: #ffd890;
+  --color-accent-primary: var(--red-700);
+  --color-accent-primary-hover: var(--red-500);
+  --color-accent-primary-active: var(--red-900);
+  --color-accent-secondary: var(--gold-500);
+  --color-status-success: #86b998;
+  --color-status-warning: #e7b45e;
+  --color-status-error: #f08b7b;
+  --color-status-info: #90bcd1;
+  --color-surface-overlay: rgb(6 5 4 / 0.82);
+  --scene-ink: #f5ecdc;
+  --scene-ink-muted: #d2c4b0;
+  --scene-glass: rgb(18 14 12 / 0.64);
+  --scene-glass-strong: rgb(18 14 12 / 0.9);
+  --scene-rule: rgb(245 236 220 / 0.22);
+  --scene-glow: #f0b65f;
+
+  /* Type */
+  --font-family-display: "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  --font-family-body: "Noto Sans SC", "Microsoft YaHei UI", "DengXian", sans-serif;
+  --font-family-mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: clamp(1.75rem, 2.2vw, 2.5rem);
+  --font-size-2xl: clamp(2.5rem, 4vw, 4.5rem);
+  --font-size-3xl: clamp(3.5rem, 7vw, 8rem);
+  --font-size-4xl: clamp(4.8rem, 11vw, 13rem);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.05;
+  --line-height-normal: 1.65;
+  --line-height-relaxed: 1.85;
+  --letter-spacing-tight: -0.045em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.16em;
+
+  /* Spacing: 4px base, spacious editorial rhythm */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-11: 12rem;
+  --space-12: 16rem;
+
+  /* Layout */
+  --max-width-content: 68ch;
+  --max-width-wide: 96rem;
+  --max-width-page: 120rem;
+  --border-radius-sm: 0.125rem;
+  --border-radius-md: 0.25rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-full: 999px;
+  --shadow-sm: 0 0.5rem 1.5rem rgb(0 0 0 / 0.2);
+  --shadow-md: 0 1.25rem 4rem rgb(0 0 0 / 0.36);
+  --shadow-focus: 0 0 0 0.1875rem var(--color-bg-primary), 0 0 0 0.3125rem var(--color-border-focus);
+  --header-height: 4.5rem;
+
+  /* Motion: premium, 3-step duration palette */
+  --duration-fast: 140ms;
+  --duration-normal: 320ms;
+  --duration-slow: 680ms;
+  --easing-default: cubic-bezier(0.2, 0, 0, 1);
+  --easing-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --easing-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --easing-ambient: cubic-bezier(0.37, 0, 0.63, 1);
+
+  /* Responsive references */
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-2xl: 1920px;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --color-bg-primary: #eee4d3;
+  --color-bg-secondary: #e4d7c2;
+  --color-bg-tertiary: #d8c8b0;
+  --color-bg-inverse: #1b1411;
+  --color-text-primary: #211814;
+  --color-text-secondary: #55463d;
+  --color-text-tertiary: #705d50;
+  --color-text-inverse: #f7eee0;
+  --color-text-link: #7b2a21;
+  --color-border-primary: rgb(91 43 30 / 0.3);
+  --color-border-secondary: rgb(91 43 30 / 0.15);
+  --color-border-focus: #8c241f;
+  --color-accent-primary: #8f211e;
+  --color-accent-primary-hover: #aa2a25;
+  --color-accent-primary-active: #661717;
+  --color-accent-secondary: #805924;
+  --color-status-success: #366e4a;
+  --color-status-warning: #825611;
+  --color-status-error: #9a3028;
+  --color-status-info: #2f6278;
+  --color-surface-overlay: rgb(37 26 20 / 0.74);
+  --shadow-sm: 0 0.5rem 1.5rem rgb(68 43 27 / 0.12);
+  --shadow-md: 0 1.25rem 4rem rgb(68 43 27 / 0.2);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --color-bg-primary: #eee4d3;
+    --color-bg-secondary: #e4d7c2;
+    --color-bg-tertiary: #d8c8b0;
+    --color-bg-inverse: #1b1411;
+    --color-text-primary: #211814;
+    --color-text-secondary: #55463d;
+    --color-text-tertiary: #705d50;
+    --color-text-inverse: #f7eee0;
+    --color-text-link: #7b2a21;
+    --color-border-primary: rgb(91 43 30 / 0.3);
+    --color-border-secondary: rgb(91 43 30 / 0.15);
+    --color-border-focus: #8c241f;
+    --color-accent-primary: #8f211e;
+    --color-accent-primary-hover: #aa2a25;
+    --color-accent-primary-active: #661717;
+    --color-accent-secondary: #805924;
+    --color-status-success: #366e4a;
+    --color-status-warning: #825611;
+    --color-status-error: #9a3028;
+    --color-status-info: #2f6278;
+    --color-surface-overlay: rgb(37 26 20 / 0.74);
+    --shadow-sm: 0 0.5rem 1.5rem rgb(68 43 27 / 0.12);
+    --shadow-md: 0 1.25rem 4rem rgb(68 43 27 / 0.2);
+  }
+}

@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0d0b0a">
+    <meta name="description" content="《长征万里，薪火千秋》——一条可以亲手拖动、跟随场景与星火前进的长征行军长卷。">
+    <title>长征万里，薪火千秋｜沉浸式行军长卷</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230d0b0a'/%3E%3Cpath d='M32 9c3 13 8 18 21 23-13 5-18 10-21 23-3-13-8-18-21-23 13-5 18-10 21-23Z' fill='%23efc67d'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles/tokens.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <script defer src="scripts/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <header class="site-header" aria-label="站点工具">
+      <a class="site-mark" href="#cover" aria-label="回到长征万里，薪火千秋封面">
+        <svg viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M14 2c1.2 6 4 8.8 10 10-6 1.2-8.8 4-10 10-1.2-6-4-8.8-10-10 6-1.2 8.8-4 10-10Z"/>
+        </svg>
+        <span>长征万里<br>薪火千秋</span>
+      </a>
+
+      <nav class="primary-nav" aria-label="主导航">
+        <a href="#journey">行军长卷</a>
+        <a href="#figures">人物专题</a>
+        <a href="#spark-wall">星火留言</a>
+      </nav>
+
+      <div class="header-tools">
+        <button class="tool-button" id="theme-toggle" type="button" aria-label="切换到浅色主题" aria-pressed="false">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5 8.5 8.5 0 1 0 20.5 14.4Z"></path>
+          </svg>
+          <span class="tool-label">转浅色</span>
+        </button>
+        <button class="tool-button" id="sound-toggle" type="button" aria-label="开启配乐" aria-pressed="false">
+          <svg class="icon-sound" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z"></path>
+            <path class="sound-wave" d="M16 8.5c1.2 1.2 1.8 2.3 1.8 3.5s-.6 2.3-1.8 3.5M19 6c2 1.8 3 3.8 3 6s-1 4.2-3 6"></path>
+            <path class="sound-slash" d="m16 9 5 6M21 9l-5 6"></path>
+          </svg>
+          <span class="tool-label">开配乐</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="cover" id="cover" data-music="cover" aria-labelledby="cover-title">
+        <div class="cover-sky" aria-hidden="true">
+          <span class="cover-orb"></span>
+          <svg class="cover-route" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+            <path class="route-shadow" d="M-80 820C210 760 280 600 520 635S770 810 1010 700 1220 460 1470 525 1660 660 1990 350"/>
+            <path class="route-line" d="M-80 820C210 760 280 600 520 635S770 810 1010 700 1220 460 1470 525 1660 660 1990 350"/>
+            <circle cx="88" cy="794" r="5"/>
+            <circle cx="520" cy="635" r="5"/>
+            <circle cx="1010" cy="700" r="5"/>
+            <circle cx="1470" cy="525" r="5"/>
+            <circle cx="1864" cy="404" r="7"/>
+          </svg>
+          <svg class="cover-mountains" viewBox="0 0 1920 820" preserveAspectRatio="none">
+            <path d="M0 420 150 320 290 380 445 230 610 390 760 275 925 440 1100 305 1260 410 1450 245 1610 380 1760 290 1920 415V820H0Z"/>
+            <path d="M0 575 170 465 340 560 520 410 690 560 910 440 1120 590 1320 455 1510 580 1690 430 1920 555V820H0Z"/>
+            <path class="cover-mountains-foreground" d="M0 710C230 665 420 694 650 676S1040 620 1270 654s390 46 650 18v148H0Z"/>
+          </svg>
+          <div class="cover-march" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="cover-grain"></div>
+        </div>
+
+        <div class="cover-content">
+          <p class="cover-date">1934.10 — 1936.10 · 二万五千里</p>
+          <h1 class="cover-title" id="cover-title">
+            <span>长征万里</span>
+            <span>薪火千秋</span>
+          </h1>
+          <p class="cover-lead">跟着一支队伍，走完一部改变中国的远征。</p>
+          <div class="cover-actions">
+            <a class="primary-action" href="#journey">
+              踏上征途
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 12h15M14 6l6 6-6 6"></path>
+              </svg>
+            </a>
+            <span class="cover-gesture">
+              <svg viewBox="0 0 32 20" aria-hidden="true">
+                <path d="M2 10h25M7 4l-5 6 5 6M25 4l5 6-5 6"></path>
+              </svg>
+              拖动 · 滚轮 · 方向键
+            </span>
+          </div>
+        </div>
+
+        <p class="cover-aside">不替你讲述终点。<br>用自己的脚步，去看见沿途。</p>
+        <a class="scroll-cue" href="#journey" aria-label="向下前往行军长卷">
+          <span>循光而行</span>
+          <svg viewBox="0 0 20 30" aria-hidden="true"><path d="M10 2v24M4 20l6 6 6-6"/></svg>
+        </a>
+      </section>
+
+      <section class="journey" id="journey" data-music="journey" aria-labelledby="journey-title">
+        <h2 class="sr-only" id="journey-title">长征行军长卷</h2>
+        <div class="scene-world" aria-hidden="true">
+          <div class="world-layer is-active" data-scene="0">
+            <svg class="scene-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="s0-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#14100f"/>
+                  <stop offset=".6" stop-color="#372019"/>
+                  <stop offset="1" stop-color="#8b4530"/>
+                </linearGradient>
+                <linearGradient id="s0-land" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#201714"/>
+                  <stop offset="1" stop-color="#0d0b0a"/>
+                </linearGradient>
+              </defs>
+              <rect width="1920" height="1080" fill="url(#s0-sky)"/>
+              <circle cx="1370" cy="300" r="190" fill="#e6a85f" opacity=".08"/>
+              <circle cx="1370" cy="300" r="74" fill="#e6a85f" opacity=".13"/>
+              <path d="M0 680C220 590 390 676 570 565S900 590 1090 502 1390 590 1580 450s240-50 340-84V1080H0Z" fill="#1e1613" opacity=".9"/>
+              <path d="M0 760c220-80 380 40 600-35s380-18 565-110 330-45 515-135 160-16 240-42V1080H0Z" fill="url(#s0-land)"/>
+              <path d="M130 926c217-110 390-34 575-105s362-114 560-78 343 29 525-92" fill="none" stroke="#d2a66a" stroke-width="2" opacity=".38"/>
+              <g fill="#120e0c">
+                <path d="M315 707h150v108H315Z"/>
+                <path d="m292 710 99-70 101 70Z"/>
+                <path d="M350 748h30v67h-30Z"/>
+                <path d="M840 755h185v123H840Z"/>
+                <path d="m807 760 125-82 124 82Z"/>
+                <path d="M880 803h42v75h-42Z"/>
+              </g>
+              <g class="window-lights" fill="#e9bc77" opacity=".6">
+                <rect x="893" y="814" width="16" height="20"/>
+                <rect x="949" y="814" width="16" height="20"/>
+                <rect x="379" y="783" width="12" height="16"/>
+              </g>
+              <g class="march-column" fill="#080706">
+                <circle cx="598" cy="870" r="10"/><rect x="590" y="882" width="16" height="42" rx="5"/>
+                <circle cx="647" cy="851" r="10"/><rect x="639" y="863" width="16" height="42" rx="5"/>
+                <circle cx="700" cy="865" r="10"/><rect x="692" y="877" width="16" height="42" rx="5"/>
+                <circle cx="754" cy="838" r="10"/><rect x="746" y="850" width="16" height="42" rx="5"/>
+                <path d="M620 874h35l-5 8h-30ZM677 858h35l-5 8h-30ZM733 850h35l-5 8h-30Z" fill="#8e2a22"/>
+              </g>
+              <g fill="none" stroke="#edc680" stroke-width="2" opacity=".35">
+                <path d="M245 316c58-41 109-41 156 0"/>
+                <path d="M440 234c37-26 69-26 99 0"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="world-layer" data-scene="1">
+            <svg class="scene-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="s1-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#0b1115"/>
+                  <stop offset=".65" stop-color="#172832"/>
+                  <stop offset="1" stop-color="#2d3a3c"/>
+                </linearGradient>
+                <linearGradient id="s1-water" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#2b454b"/>
+                  <stop offset="1" stop-color="#071115"/>
+                </linearGradient>
+              </defs>
+              <rect width="1920" height="1080" fill="url(#s1-sky)"/>
+              <circle cx="1460" cy="205" r="70" fill="#d9ddd2" opacity=".24"/>
+              <circle cx="1460" cy="205" r="120" fill="#d9ddd2" opacity=".04"/>
+              <path d="M0 560 250 420l205 120 240-210 220 195 235-275 245 245 210-165 315 230V760H0Z" fill="#11191c"/>
+              <rect y="650" width="1920" height="430" fill="url(#s1-water)"/>
+              <g class="water-currents" fill="none" stroke="#9fb7b7">
+                <path class="water-line" d="M-50 736c210-42 390 42 610 0s380 35 620 0 480 36 760-7" opacity=".26"/>
+                <path class="water-line" d="M-80 812c240-30 390 50 660 6s410 36 670 0 450 54 720-10" opacity=".2"/>
+                <path class="water-line" d="M-40 916c250-45 420 46 690-2s410 48 680 0 410 44 640-6" opacity=".14"/>
+                <path class="water-line" d="M-20 1025c260-38 390 30 670 0s470 35 690-4 390 28 610-4" opacity=".1"/>
+              </g>
+              <g fill="#080c0e">
+                <path d="M790 618h390v25H790Z"/>
+                <path d="M840 560v152M920 535v177M1015 535v177M1100 560v152" stroke="#080c0e" stroke-width="15"/>
+                <path d="M843 559 1103 626M840 625l262-67" stroke="#080c0e" stroke-width="5"/>
+              </g>
+              <g class="march-column" fill="#071013">
+                <circle cx="525" cy="820" r="13"/><rect x="514" y="835" width="21" height="62" rx="7"/>
+                <circle cx="590" cy="800" r="13"/><rect x="579" y="815" width="21" height="62" rx="7"/>
+                <circle cx="660" cy="835" r="13"/><rect x="649" y="850" width="21" height="62" rx="7"/>
+                <circle cx="730" cy="812" r="13"/><rect x="719" y="827" width="21" height="62" rx="7"/>
+              </g>
+              <g class="reeds" stroke="#8d9b91" stroke-width="3" opacity=".4">
+                <path d="M270 840v150M282 865c52-26 79-14 105-55M260 910c-45-30-70-30-104-54"/>
+                <path d="M1225 783v195M1238 820c53-34 82-21 112-66M1213 880c-48-38-73-33-110-63"/>
+              </g>
+              <path d="M0 680c260-34 500-40 780-14s420 8 600-12 350-14 540 10" fill="none" stroke="#a63228" stroke-width="3" opacity=".34"/>
+            </svg>
+          </div>
+
+          <div class="world-layer" data-scene="2">
+            <svg class="scene-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="s2-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#090b0c"/>
+                  <stop offset="1" stop-color="#221813"/>
+                </linearGradient>
+                <radialGradient id="s2-lamp">
+                  <stop offset="0" stop-color="#f4c36e" stop-opacity=".42"/>
+                  <stop offset=".35" stop-color="#bb7836" stop-opacity=".14"/>
+                  <stop offset="1" stop-color="#bb7836" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect width="1920" height="1080" fill="url(#s2-sky)"/>
+              <circle cx="1160" cy="512" r="370" fill="url(#s2-lamp)"/>
+              <g fill="#0e0c0b">
+                <path d="M0 692h250v388H0ZM260 725h245v355H260ZM1030 660h260v420h-260ZM1320 720h260v360h-260ZM1600 685h320v395h-320Z"/>
+                <path d="m-30 700 165-155 160 155ZM230 732 390 555l165 177ZM1000 670l170-175 170 175ZM1290 730l170-175 168 175ZM1570 694l170-170 170 170Z"/>
+              </g>
+              <g class="window-lights window-lights--warm" fill="#e1a94d">
+                <rect x="1123" y="780" width="38" height="55" opacity=".7"/>
+                <rect x="1204" y="780" width="38" height="55" opacity=".35"/>
+                <rect x="1412" y="825" width="28" height="44" opacity=".46"/>
+                <rect x="374" y="832" width="24" height="40" opacity=".28"/>
+                <rect x="516" y="858" width="24" height="40" opacity=".2"/>
+                <rect x="1698" y="810" width="30" height="44" opacity=".25"/>
+              </g>
+              <g fill="none" stroke="#d6a258" opacity=".35">
+                <path d="M1050 905c80-22 160-8 240 0s160-4 220-18"/>
+                <path d="M1010 948c115-16 210 12 320 0s160-13 250-2"/>
+              </g>
+              <path d="M0 1010c160-55 320-35 450-10s220 52 390-8 300-82 475-38 340 48 605-4v130H0Z" fill="#080706"/>
+              <g class="march-column march-column--near" fill="#080706">
+                <circle cx="890" cy="786" r="18"/><path d="M870 805h42l18 150h-80Z"/>
+                <circle cx="958" cy="814" r="18"/><path d="M938 833h42l18 130h-80Z"/>
+              </g>
+              <path d="M1080 1030V738h18v292" stroke="#6f583d" stroke-width="7"/>
+              <path d="M1089 763c-42 9-68 28-86 55M1089 763c38 8 61 26 83 52" fill="none" stroke="#71583d" stroke-width="5"/>
+              <circle cx="1089" cy="748" r="20" fill="#f0bd64"/>
+            </svg>
+          </div>
+
+          <div class="world-layer" data-scene="3">
+            <svg class="scene-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="s3-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#091014"/>
+                  <stop offset="1" stop-color="#15292e"/>
+                </linearGradient>
+                <linearGradient id="s3-river" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#1d4248"/>
+                  <stop offset="1" stop-color="#0a171b"/>
+                </linearGradient>
+              </defs>
+              <rect width="1920" height="1080" fill="url(#s3-sky)"/>
+              <path d="M0 460 240 330l210 130 210-230 270 240 260-165 230 190 230-255 290 260V1080H0Z" fill="#10191b"/>
+              <path d="M0 610 290 485l240 115 255-145 230 175 260-105 260 145 220-110 235 70V1080H0Z" fill="#172326"/>
+              <path d="M1075 1080c-40-145 150-188 70-330-44-78-209-45-210-165-1-105 153-95 205-230" fill="none" stroke="url(#s3-river)" stroke-width="130" opacity=".72"/>
+              <path class="water-line" d="M1106 1080c-50-140 130-190 48-327-44-74-201-53-188-160 13-103 159-103 194-220" fill="none" stroke="#78a2a4" stroke-width="3" opacity=".22"/>
+              <g class="route-ledger" fill="none" stroke="#cf4b3a" stroke-linecap="round">
+                <path d="M1040 864c240-89 134-221 386-231" stroke-width="6" opacity=".55"/>
+                <path d="M1010 748c262 43 204-178 445-142" stroke-width="5" opacity=".42"/>
+                <path d="M920 612c209-35 167-183 382-159" stroke-width="4" opacity=".31"/>
+                <path d="M905 488c200-31 183-116 330-154" stroke-width="3" opacity=".24"/>
+              </g>
+              <g class="rain-hatch" stroke="#b9c9c5" opacity=".11">
+                <path d="m320 190-70 220M550 150l-70 240M790 190l-70 210M1200 120l-70 230M1430 170l-70 240M1680 120l-70 210" stroke-width="2"/>
+              </g>
+              <path d="M0 984c260-75 420 65 690 0s430-80 680 0 350 30 550-36v132H0Z" fill="#080d0f"/>
+              <g class="march-column" fill="#0b1011">
+                <circle cx="765" cy="840" r="12"/><rect x="755" y="854" width="20" height="56" rx="7"/>
+                <circle cx="824" cy="866" r="12"/><rect x="814" y="880" width="20" height="56" rx="7"/>
+                <circle cx="887" cy="844" r="12"/><rect x="877" y="858" width="20" height="56" rx="7"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="world-layer" data-scene="4">
+            <svg class="scene-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="s4-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#101b25"/>
+                  <stop offset=".55" stop-color="#536674"/>
+                  <stop offset="1" stop-color="#b8c2c3"/>
+                </linearGradient>
+                <linearGradient id="s4-peak" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#edf0ea"/>
+                  <stop offset=".4" stop-color="#87969b"/>
+                  <stop offset="1" stop-color="#2e3c43"/>
+                </linearGradient>
+              </defs>
+              <rect width="1920" height="1080" fill="url(#s4-sky)"/>
+              <circle cx="360" cy="220" r="100" fill="#e7ece8" opacity=".12"/>
+              <path d="M0 780 290 420l115 118 220-320 180 255 180-140 195 285 210-430 200 346 150-166 180 264V1080H0Z" fill="#3d4c52"/>
+              <path d="m0 890 285-410 115 118 220-320 180 255 180-140 195 285 210-430 200 346 150-166 180 264v168l-330-178-310 108-280-158-300 196-280-164-355 152-240-48Z" fill="url(#s4-peak)" opacity=".9"/>
+              <g fill="none" stroke="#dee6e5" opacity=".35">
+                <path d="m286 505 119 112 57-45M406 480l219-318 178 254M604 520l180-140 193 285M978 315l208-426 198 344M1378 333l149-165 178 262"/>
+              </g>
+              <path d="M0 1000c270-80 450 50 700-12s400 34 630-25 390 2 590-52v169H0Z" fill="#141d22"/>
+              <g class="march-column" fill="#101619">
+                <circle cx="850" cy="738" r="10"/><path d="M839 750h22l7 55h-36Z"/>
+                <circle cx="902" cy="717" r="10"/><path d="M891 729h22l7 55h-36Z"/>
+                <circle cx="955" cy="746" r="10"/><path d="M944 758h22l7 55h-36Z"/>
+                <path d="m864 757 42-11M916 736l42-11" stroke="#6d1917" stroke-width="4"/>
+              </g>
+              <path d="M0 870c220-36 340-24 500-5M1390 835c180-32 330-22 530 10" fill="none" stroke="#edf2ef" stroke-width="2" opacity=".25"/>
+            </svg>
+          </div>
+
+          <div class="world-layer" data-scene="5">
+            <svg class="scene-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="s5-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#12191a"/>
+                  <stop offset=".6" stop-color="#3b4945"/>
+                  <stop offset="1" stop-color="#66706a"/>
+                </linearGradient>
+                <linearGradient id="s5-land" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#414941"/>
+                  <stop offset="1" stop-color="#141a17"/>
+                </linearGradient>
+              </defs>
+              <rect width="1920" height="1080" fill="url(#s5-sky)"/>
+              <circle cx="1450" cy="260" r="92" fill="#d6d6bd" opacity=".12"/>
+              <path d="M0 620c270-50 380 20 590-18s380-32 570 12 400-22 760-72v538H0Z" fill="url(#s5-land)"/>
+              <path d="M0 760c280-30 430 32 660-5s440 37 650 0 360 3 610-36" fill="none" stroke="#9ba69b" stroke-width="2" opacity=".16"/>
+              <path d="M0 925c330-45 440 40 730-2s420 24 620-8 360 12 570-25" fill="none" stroke="#9ba69b" stroke-width="3" opacity=".12"/>
+              <g class="grass-field" fill="none" stroke="#1d2721" stroke-width="4">
+                <path d="M250 770v190M258 800c55-22 80-8 111-48M240 875c-45-30-67-28-98-60"/>
+                <path d="M1260 735v225M1270 770c63-29 94-13 130-61M1250 860c-48-38-78-35-110-66"/>
+                <path d="M1660 810v150M1671 836c46-20 70-6 100-42M1650 902c-36-25-57-22-82-47"/>
+                <path d="M530 854v105M540 870c42-18 63-5 88-37M520 920c-36-22-54-20-79-40"/>
+              </g>
+              <g class="march-column" fill="#111915">
+                <circle cx="760" cy="792" r="11"/><path d="M747 806h25l6 70h-37Z"/>
+                <circle cx="811" cy="818" r="11"/><path d="M798 832h25l6 70h-37Z"/>
+                <circle cx="864" cy="790" r="11"/><path d="M851 804h25l6 70h-37Z"/>
+                <circle cx="917" cy="823" r="11"/><path d="M904 837h25l6 70h-37Z"/>
+                <path d="m774 817 36-12M825 843l36-13M878 814l36-12" stroke="#7c211c" stroke-width="4"/>
+              </g>
+              <g fill="#b8c0b8" opacity=".07">
+                <path d="M0 660c350-84 650 66 980 0s570-58 940 8v120c-330-58-630 38-970-8S330 740 0 790Z"/>
+                <path d="M0 810c360-65 630 56 950 4s590-40 970 22v70c-370-44-650 25-980-18S320 850 0 890Z"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="world-layer" data-scene="6">
+            <svg class="scene-art" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="s6-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#130f0d"/>
+                  <stop offset=".48" stop-color="#4b2119"/>
+                  <stop offset="1" stop-color="#c46f39"/>
+                </linearGradient>
+                <radialGradient id="s6-sun">
+                  <stop offset="0" stop-color="#ffe0a0" stop-opacity=".95"/>
+                  <stop offset=".25" stop-color="#e7a45a" stop-opacity=".5"/>
+                  <stop offset="1" stop-color="#c25b34" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect width="1920" height="1080" fill="url(#s6-sky)"/>
+              <circle class="sun-halo" cx="1190" cy="620" r="360" fill="url(#s6-sun)"/>
+              <circle class="sun-core" cx="1190" cy="620" r="92" fill="#f6c675" opacity=".62"/>
+              <path d="M0 665c230-88 410 26 630-25s350-62 540 6 390 15 750-90v524H0Z" fill="#2a1711" opacity=".78"/>
+              <path d="M0 805c270-55 405 15 650-15s430-40 650 10 370 16 620-38v318H0Z" fill="#0f0b09"/>
+              <path d="M0 900c280-20 450 30 680 0s420 20 650-4 360 15 590-18" fill="none" stroke="#e8b66e" stroke-width="2" opacity=".35"/>
+              <g class="march-column march-column--arrival" fill="#0b0807">
+                <circle cx="760" cy="820" r="11"/><rect x="749" y="834" width="21" height="56" rx="7"/>
+                <circle cx="813" cy="838" r="11"/><rect x="802" y="852" width="21" height="56" rx="7"/>
+                <circle cx="867" cy="814" r="11"/><rect x="856" y="828" width="21" height="56" rx="7"/>
+                <circle cx="922" cy="830" r="11"/><rect x="911" y="844" width="21" height="56" rx="7"/>
+                <circle cx="980" cy="802" r="11"/><rect x="969" y="816" width="21" height="56" rx="7"/>
+              </g>
+              <path d="M976 808V650" stroke="#0b0807" stroke-width="6"/>
+              <path class="banner-flag" d="M978 658c45 6 75 20 101 46-49-6-79 2-105 20Z" fill="#861e19"/>
+              <g class="settlement-stars" fill="#f4c779">
+                <circle cx="562" cy="412" r="2"/><circle cx="714" cy="300" r="2.5"/><circle cx="908" cy="388" r="1.5"/>
+                <circle cx="1100" cy="255" r="2"/><circle cx="1320" cy="395" r="2.5"/><circle cx="1510" cy="272" r="1.8"/>
+              </g>
+              <path d="M0 1008c330-23 490 18 710 0s440 12 660-4 330 18 550-5v81H0Z" fill="#080605"/>
+            </svg>
+          </div>
+
+          <div class="weather-field" id="weather-field"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-grain"></div>
+        </div>
+
+        <div class="journey-topbar">
+          <div>
+            <p class="journey-kicker">1934—1936 · 行军长卷</p>
+            <p class="journey-place" id="journey-place" aria-live="polite">瑞金 · 于都河</p>
+          </div>
+          <p class="drag-hint">
+            <svg viewBox="0 0 32 20" aria-hidden="true"><path d="M2 10h25M7 4l-5 6 5 6M25 4l5 6-5 6"/></svg>
+            按住画面左右拖动
+          </p>
+        </div>
+
+        <div
+          class="march-scroller"
+          id="march-scroller"
+          role="region"
+          aria-label="长征行军长卷。使用左右方向键、前后节点按钮或拖动画面移动。"
+          aria-describedby="march-instructions"
+          tabindex="0"
+        >
+          <p class="sr-only" id="march-instructions">长卷包含七个历史节点。左右方向键切换节点，Home 和 End 键前往起点或终点。</p>
+          <div class="march-track">
+            <article class="scene-panel scene-panel--left" data-node="0" aria-labelledby="march-title-0">
+              <div class="scene-copy">
+                <p class="scene-meta"><span>第一程</span><span>1934 / 10</span></p>
+                <h3 id="march-title-0">告别于都河</h3>
+                <p class="scene-line">夜色里，一支队伍渡河远去。岸上的人没有问归期。</p>
+                <details class="scene-depth">
+                  <summary>展开这一程</summary>
+                  <div>
+                    <p>1934年10月，中央红军踏上战略转移之路。于都河是中央红军长征的集结与出发地之一，许多家庭在渡口送别亲人。</p>
+                    <p>长卷从这里起步：不先展示宏大结论，而把“离开”作为进入历史的第一个动作。</p>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="scene-panel scene-panel--right" data-node="1" aria-labelledby="march-title-1">
+              <div class="scene-copy">
+                <p class="scene-meta"><span>第二程</span><span>1934 / 11—12</span></p>
+                <h3 id="march-title-1">湘江，不退</h3>
+                <p class="scene-line">最冷的江水，托住了一支队伍继续向前的方向。</p>
+                <details class="scene-depth">
+                  <summary>展开这一程</summary>
+                  <div>
+                    <p>1934年冬，中央红军在湘江沿岸与强敌鏖战，付出重大牺牲后渡过湘江。红三十四师承担后卫任务，许多指战员未能渡河。</p>
+                    <p>这一节点的动效降到最低：江面缓慢流动，号角只响一次，让用户用停顿记住代价。</p>
+                  </div>
+                </details>
+                <button class="fragment-trigger" type="button" data-fragment="bugle" aria-haspopup="dialog">
+                  <span class="fragment-glyph" aria-hidden="true">
+                    <img src="assets/fragments/period-bugle.jpg" alt="" width="1280" height="675">
+                  </span>
+                  <span><small>拾起记忆碎片</small><strong>旧号角</strong></span>
+                </button>
+              </div>
+            </article>
+
+            <article class="scene-panel scene-panel--left scene-panel--high" data-node="2" aria-labelledby="march-title-2">
+              <div class="scene-copy">
+                <p class="scene-meta"><span>第三程</span><span>1935 / 01</span></p>
+                <h3 id="march-title-2">一盏灯，校准航向</h3>
+                <p class="scene-line">危急处，历史选择了重新看清方向。</p>
+                <details class="scene-depth">
+                  <summary>展开这一程</summary>
+                  <div>
+                    <p>1935年1月，中共中央政治局在遵义召开扩大会议，集中解决当时具有决定意义的军事和组织问题，实际确立了毛泽东在中共中央和红军的领导地位。</p>
+                    <p>画面以窗外的一盏灯作为唯一暖源，点击碎片可以打开一封“家书意象”，理解宏大转折背后仍是一个个具体的人。</p>
+                  </div>
+                </details>
+                <button class="fragment-trigger" type="button" data-fragment="letter" aria-haspopup="dialog">
+                  <span class="fragment-glyph" aria-hidden="true">
+                    <img src="assets/fragments/red-army-family-mail.jpg" alt="" width="1280" height="853">
+                  </span>
+                  <span><small>拾起记忆碎片</small><strong>一封家书</strong></span>
+                </button>
+              </div>
+            </article>
+
+            <article class="scene-panel scene-panel--right" data-node="3" aria-labelledby="march-title-3">
+              <div class="scene-copy">
+                <p class="scene-meta"><span>第四程</span><span>1935 / 01—03</span></p>
+                <h3 id="march-title-3">四渡赤水</h3>
+                <p class="scene-line">四次渡过同一条河，把被动走成主动。</p>
+                <details class="scene-depth">
+                  <summary>展开这一程</summary>
+                  <div>
+                    <p>1935年初，中央红军在川黔滇边地区四次渡过赤水河，以灵活机动的运动战摆脱敌军围追堵截。</p>
+                    <p>四道红色行军轨迹会随用户拖拽逐段绘出，让“路线”本身成为这一节点的视觉叙事。</p>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="scene-panel scene-panel--left scene-panel--high" data-node="4" aria-labelledby="march-title-4">
+              <div class="scene-copy">
+                <p class="scene-meta"><span>第五程</span><span>1935 / 06</span></p>
+                <h3 id="march-title-4">翻越夹金山</h3>
+                <p class="scene-line">海拔之上，呼吸变得困难，脚步没有停下。</p>
+                <details class="scene-depth">
+                  <summary>展开这一程</summary>
+                  <div>
+                    <p>1935年6月，中央红军翻越海拔四千多米的夹金山，在严寒、缺氧和险峻地形中继续北上，并与红四方面军先头部队会合。</p>
+                    <p>场景切换为冷钢蓝，雪粒横向掠过；声音变为高山风声，移动速度稍缓，用体验传递自然环境的阻力。</p>
+                  </div>
+                </details>
+                <button class="fragment-trigger" type="button" data-fragment="straw-shoes" aria-haspopup="dialog">
+                  <span class="fragment-glyph" aria-hidden="true">
+                    <img src="assets/fragments/red-army-straw-shoes.jpg" alt="" width="1280" height="960">
+                  </span>
+                  <span><small>拾起记忆碎片</small><strong>一双草鞋</strong></span>
+                </button>
+              </div>
+            </article>
+
+            <article class="scene-panel scene-panel--right" data-node="5" aria-labelledby="march-title-5">
+              <div class="scene-copy">
+                <p class="scene-meta"><span>第六程</span><span>1935 / 08</span></p>
+                <h3 id="march-title-5">走出草地</h3>
+                <p class="scene-line">看不见路的沼泽里，信念成为唯一的路标。</p>
+                <details class="scene-depth">
+                  <summary>展开这一程</summary>
+                  <div>
+                    <p>1935年8月，红军进入川西北草地。泥沼、寒冷与缺粮让行军异常艰难，队伍在互相搀扶中继续前进。</p>
+                    <p>薄雾在画面下方流动，远处的队伍只保留隐约剪影。用户需要主动移动，才会发现下一段路。</p>
+                  </div>
+                </details>
+                <button class="fragment-trigger" type="button" data-fragment="photo" aria-haspopup="dialog">
+                  <span class="fragment-glyph" aria-hidden="true">
+                    <img src="assets/fragments/red-sixth-army-group-1935.jpg" alt="" width="698" height="357">
+                  </span>
+                  <span><small>拾起记忆碎片</small><strong>一张老照片</strong></span>
+                </button>
+              </div>
+            </article>
+
+            <article class="scene-panel scene-panel--left scene-panel--high" data-node="6" aria-labelledby="march-title-6">
+              <div class="scene-copy">
+                <p class="scene-meta"><span>第七程</span><span>1935 / 10</span></p>
+                <h3 id="march-title-6">抵达吴起镇</h3>
+                <p class="scene-line">走到陕北，远征没有结束；新的长征，刚刚开始。</p>
+                <details class="scene-depth">
+                  <summary>展开这一程</summary>
+                  <div>
+                    <p>1935年10月，中央红军到达陕北吴起镇，完成历时一年的战略转移。1936年10月，红军三大主力在会宁、将台堡地区会师，长征胜利结束。</p>
+                    <p>抵达不是闭合的句号。画面把人群指向更远的地平线，并把右侧全部星火汇成一束火炬。</p>
+                  </div>
+                </details>
+                <a class="text-link scene-next" href="#figures">继续认识走过长夜的人</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <aside class="star-rail" aria-label="星火传递进度">
+          <p class="star-rail-title">星火</p>
+          <div class="star-track">
+            <button type="button" class="star-node" data-target="0" aria-label="前往第一程：告别于都河"><span></span></button>
+            <button type="button" class="star-node" data-target="1" aria-label="前往第二程：湘江，不退"><span></span></button>
+            <button type="button" class="star-node" data-target="2" aria-label="前往第三程：一盏灯，校准航向"><span></span></button>
+            <button type="button" class="star-node" data-target="3" aria-label="前往第四程：四渡赤水"><span></span></button>
+            <button type="button" class="star-node" data-target="4" aria-label="前往第五程：翻越夹金山"><span></span></button>
+            <button type="button" class="star-node" data-target="5" aria-label="前往第六程：走出草地"><span></span></button>
+            <button type="button" class="star-node" data-target="6" aria-label="前往第七程：抵达吴起镇"><span></span></button>
+          </div>
+          <div class="rail-torch" aria-hidden="true">
+            <span class="rail-flame"></span>
+            <span class="rail-stem"></span>
+          </div>
+        </aside>
+
+        <div class="journey-controls">
+          <button type="button" class="march-button" id="prev-scene" aria-label="前往上一程">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+          </button>
+          <div class="journey-progress">
+            <span id="scene-number">01</span>
+            <span class="progress-rule"><span id="progress-fill"></span></span>
+            <span>07</span>
+          </div>
+          <button type="button" class="march-button" id="next-scene" aria-label="前往下一程">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="figures" id="figures" data-music="figures" aria-labelledby="figures-title">
+        <header class="section-heading">
+          <p class="section-kicker">人物专题 · 八个人的长征</p>
+          <h2 id="figures-title">历史不是远处的名字。</h2>
+          <p class="section-intro">先读处在历史转折中心的毛泽东，再进入下方的人物走廊。中央领导人、红军将士与普通百姓的片刻，共同组成一条人的长征。</p>
+        </header>
+
+        <div class="people-showcase" id="people-showcase">
+          <p class="sr-only" id="people-selection-status" role="status" aria-live="polite"></p>
+          <article class="people-feature" aria-labelledby="people-feature-name">
+            <div class="people-feature-intro">
+              <p class="section-kicker">人物档案 · <span id="people-feature-years">1893—1976</span></p>
+              <p class="person-index"><span>当前阅读</span><span id="people-feature-position">01 / 08</span></p>
+              <h3 id="people-feature-name">毛泽东</h3>
+              <p class="person-role" id="people-feature-role">中共中央领导人</p>
+              <p class="person-line" id="people-feature-line">在历史转折处，重新校准前行的方向。</p>
+            </div>
+            <figure class="people-feature-portrait">
+              <span class="photo-kind" id="people-feature-kind">历史肖像</span>
+              <img
+                id="people-feature-photo"
+                src="assets/people/mao-zedong.jpg"
+                width="673"
+                height="908"
+                decoding="async"
+                alt="毛泽东1950年历史肖像"
+              >
+              <figcaption>
+                <span id="people-feature-caption">毛泽东历史肖像 · 1950年</span>
+                <a id="people-feature-source" href="https://commons.wikimedia.org/wiki/File:Mao_Zedong_1950_Portrait_(3x4_cropped)(2).jpg" target="_blank" rel="noopener noreferrer">陈正青 · 公有领域</a>
+              </figcaption>
+            </figure>
+            <div class="people-feature-copy">
+              <p class="people-feature-detail" id="people-feature-detail">1935年1月，遵义会议集中解决当时具有决定意义的军事和组织问题，实际确立了毛泽东在中共中央和红军的领导地位。此后，中央红军继续北上。</p>
+              <p class="source-note" id="people-feature-note">历史肖像摄于1950年，并非长征现场照片。</p>
+              <button class="people-reset" id="people-reset" type="button" hidden>回到毛泽东</button>
+            </div>
+          </article>
+
+          <div class="people-corridor">
+            <div class="people-corridor-toolbar">
+              <div>
+                <p class="section-kicker">人物走廊 · 选择停下来阅读</p>
+                <p class="people-auto-state" id="people-auto-state">自动前行 · 悬停暂停</p>
+              </div>
+              <div class="people-controls">
+                <button class="people-control" id="people-prev" type="button" aria-label="查看上一位人物">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg>
+                </button>
+                <button class="people-control people-control--play" id="people-toggle" type="button">暂停人物流动</button>
+                <button class="people-control" id="people-next" type="button" aria-label="查看下一位人物">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="people-viewport"
+              id="people-viewport"
+              role="region"
+              aria-label="人物走廊。使用左右方向键、前后按钮、拖动或横向滑动浏览人物。"
+              tabindex="0"
+            >
+              <div class="people-track" id="people-track"></div>
+            </div>
+            <p class="people-corridor-note">拖动、横向滑动或使用方向键浏览。自动流动会在悬停、聚焦和操作时暂停。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="spark-wall" id="spark-wall" data-music="spark" aria-labelledby="spark-wall-title">
+        <div class="spark-wall-intro">
+          <p class="section-kicker">星火留言 · 传下去</p>
+          <h2 id="spark-wall-title">留一束光，<br>给走过黑夜的人。</h2>
+          <p>一句话，不必宏大。它会被安放在这片星火谱里，成为后来者看见的一点光。</p>
+
+          <form class="spark-form" id="spark-form" novalidate>
+            <div class="field">
+              <label for="visitor-name">你的称呼 <span>可留白</span></label>
+              <input id="visitor-name" name="name" type="text" maxlength="16" autocomplete="name" placeholder="例如：一名后来者…">
+            </div>
+            <div class="field">
+              <label for="spark-message">写下一句话 <span>最多 60 个字</span></label>
+              <textarea id="spark-message" name="message" rows="3" maxlength="60" required autocomplete="off" aria-describedby="spark-count spark-status" placeholder="写给长征，也写给今天的我们…"></textarea>
+              <div class="field-foot">
+                <span id="spark-count" aria-hidden="true">0 / 60</span>
+                <span class="form-hint">提交即公开显示在本站</span>
+              </div>
+            </div>
+            <label class="honeypot" aria-hidden="true">网站<input name="website" tabindex="-1" autocomplete="off"></label>
+            <button class="primary-action" type="submit" id="spark-submit">
+              点亮星火
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-3.6-4.2-6-7.3-6-10.5a6 6 0 0 1 12 0C18 13.7 15.6 16.8 12 21ZM12 6v5"/></svg>
+            </button>
+            <p class="form-status" id="spark-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="spark-roster">
+          <div class="roster-head">
+            <p>星火谱</p>
+            <span><strong id="message-count">0</strong> 束光</span>
+          </div>
+          <ol class="message-list" id="message-list">
+            <li class="message-item message-item--seed">
+              <span class="message-ember" aria-hidden="true"></span>
+              <p>不忘来路，走好脚下的路。</p>
+              <div><span>策展寄语</span><time>1936—2026</time></div>
+            </li>
+            <li class="message-item message-item--seed">
+              <span class="message-ember" aria-hidden="true"></span>
+              <p>每一次向前的脚步，都是星火的延续。</p>
+              <div><span>策展寄语</span><time>今天</time></div>
+            </li>
+            <li class="message-item message-item--seed">
+              <span class="message-ember" aria-hidden="true"></span>
+              <p>愿我们记得远行的人，也走好自己的长征。</p>
+              <div><span>策展寄语</span><time>今天</time></div>
+            </li>
+          </ol>
+          <p class="storage-note" id="storage-note">留言先在本机保存；通过项目服务器打开时会同步到星火墙。</p>
+        </div>
+      </section>
+
+      <section class="finale" id="finale" data-music="finale" aria-labelledby="finale-title">
+        <div class="finale-stars" id="finale-stars" aria-hidden="true"></div>
+        <div class="finale-content">
+          <p class="finale-date">1936—2026 · 纪念长征胜利九十周年</p>
+          <div class="grand-torch" aria-hidden="true">
+            <span class="grand-glow"></span>
+            <span class="grand-flame"></span>
+            <span class="grand-stem"></span>
+          </div>
+          <h2 id="finale-title">一人一点星火<br>汇聚民族之光</h2>
+          <p>长卷会走到终点，脚步不会。把看见的、记住的，带进下一段路。</p>
+          <div class="finale-actions">
+            <a class="primary-action" href="#journey">再走一程</a>
+            <a class="text-link" href="#spark-wall">回到星火墙</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>《长征万里，薪火千秋》网页设计竞赛作品</p>
+      <p>原创 SVG 场景 · 原生 HTML / CSS / JavaScript · 无预设样式库</p>
+    </footer>
+
+    <dialog class="fragment-dialog" id="fragment-dialog" aria-labelledby="fragment-title" aria-describedby="fragment-meta fragment-text">
+      <div class="dialog-frame">
+        <button class="dialog-close" type="button" id="dialog-close" aria-label="关闭记忆碎片">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>
+        </button>
+        <div class="artifact-visual" id="artifact-visual"></div>
+        <div class="artifact-copy">
+          <p class="artifact-meta" id="fragment-meta"></p>
+          <h2 id="fragment-title"></h2>
+          <p class="artifact-body" id="fragment-text"></p>
+          <p class="source-note fragment-source" id="fragment-source"></p>
+        </div>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="sr-only" id="audio-status" aria-live="polite"></div>
+    <noscript>
+      <p class="noscript">本作品需要启用 JavaScript 才能体验行军长卷。请启用后重新打开。</p>
+    </noscript>
+  </body>
+</html>
