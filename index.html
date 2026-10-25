@@ -7,9 +7,11 @@
     <meta name="description" content="《长征万里，薪火千秋》——一条可以亲手拖动、跟随场景与星火前进的长征行军长卷。">
     <title>长征万里，薪火千秋｜沉浸式行军长卷</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230d0b0a'/%3E%3Cpath d='M32 9c3 13 8 18 21 23-13 5-18 10-21 23-3-13-8-18-21-23 13-5 18-10 21-23Z' fill='%23efc67d'/%3E%3C/svg%3E">
-    <link rel="stylesheet" href="styles/tokens.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <script defer src="scripts/app.js"></script>
+    <link rel="preload" href="assets/fonts/noto-sans-sc-site.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="assets/fonts/noto-serif-sc-site.woff" as="font" type="font/woff" crossorigin>
+    <link rel="stylesheet" href="styles/tokens.css?v=20261025-6">
+    <link rel="stylesheet" href="styles/main.css?v=20261025-6">
+    <script defer src="scripts/app.js?v=20261025-6"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -80,7 +82,7 @@
             <span>长征万里</span>
             <span>薪火千秋</span>
           </h1>
-          <p class="cover-lead">跟着一支队伍，走完一部改变中国的远征。</p>
+          <p class="cover-lead">一条可以亲手走过的长征长卷，跟着队伍走完改变中国的远征。</p>
           <div class="cover-actions">
             <a class="primary-action" href="#journey">
               踏上征途
@@ -387,12 +389,12 @@
 
         <div class="journey-topbar">
           <div>
-            <p class="journey-kicker">1934—1936 · 行军长卷</p>
             <p class="journey-place" id="journey-place" aria-live="polite">瑞金 · 于都河</p>
+            <p class="journey-instruction">左右滑动查看七程，也可使用方向键</p>
           </div>
           <p class="drag-hint">
             <svg viewBox="0 0 32 20" aria-hidden="true"><path d="M2 10h25M7 4l-5 6 5 6M25 4l5 6-5 6"/></svg>
-            按住画面左右拖动
+            左右拖动或滑动 · 方向键切换
           </p>
         </div>
 
@@ -405,8 +407,8 @@
           tabindex="0"
         >
           <p class="sr-only" id="march-instructions">长卷包含七个历史节点。左右方向键切换节点，Home 和 End 键前往起点或终点。</p>
-          <div class="march-track">
-            <article class="scene-panel scene-panel--left" data-node="0" aria-labelledby="march-title-0">
+          <ol class="march-track">
+            <li class="scene-panel scene-panel--left" data-node="0" aria-labelledby="march-title-0">
               <div class="scene-copy">
                 <p class="scene-meta"><span>第一程</span><span>1934 / 10</span></p>
                 <h3 id="march-title-0">告别于都河</h3>
@@ -419,9 +421,9 @@
                   </div>
                 </details>
               </div>
-            </article>
+            </li>
 
-            <article class="scene-panel scene-panel--right" data-node="1" aria-labelledby="march-title-1">
+            <li class="scene-panel scene-panel--right" data-node="1" aria-labelledby="march-title-1">
               <div class="scene-copy">
                 <p class="scene-meta"><span>第二程</span><span>1934 / 11—12</span></p>
                 <h3 id="march-title-1">湘江，不退</h3>
@@ -440,9 +442,9 @@
                   <span><small>拾起记忆碎片</small><strong>旧号角</strong></span>
                 </button>
               </div>
-            </article>
+            </li>
 
-            <article class="scene-panel scene-panel--left scene-panel--high" data-node="2" aria-labelledby="march-title-2">
+            <li class="scene-panel scene-panel--left scene-panel--high" data-node="2" aria-labelledby="march-title-2">
               <div class="scene-copy">
                 <p class="scene-meta"><span>第三程</span><span>1935 / 01</span></p>
                 <h3 id="march-title-2">一盏灯，校准航向</h3>
@@ -461,9 +463,9 @@
                   <span><small>拾起记忆碎片</small><strong>一封家书</strong></span>
                 </button>
               </div>
-            </article>
+            </li>
 
-            <article class="scene-panel scene-panel--right" data-node="3" aria-labelledby="march-title-3">
+            <li class="scene-panel scene-panel--right" data-node="3" aria-labelledby="march-title-3">
               <div class="scene-copy">
                 <p class="scene-meta"><span>第四程</span><span>1935 / 01—03</span></p>
                 <h3 id="march-title-3">四渡赤水</h3>
@@ -476,9 +478,9 @@
                   </div>
                 </details>
               </div>
-            </article>
+            </li>
 
-            <article class="scene-panel scene-panel--left scene-panel--high" data-node="4" aria-labelledby="march-title-4">
+            <li class="scene-panel scene-panel--left scene-panel--high" data-node="4" aria-labelledby="march-title-4">
               <div class="scene-copy">
                 <p class="scene-meta"><span>第五程</span><span>1935 / 06</span></p>
                 <h3 id="march-title-4">翻越夹金山</h3>
@@ -497,9 +499,9 @@
                   <span><small>拾起记忆碎片</small><strong>一双草鞋</strong></span>
                 </button>
               </div>
-            </article>
+            </li>
 
-            <article class="scene-panel scene-panel--right" data-node="5" aria-labelledby="march-title-5">
+            <li class="scene-panel scene-panel--right" data-node="5" aria-labelledby="march-title-5">
               <div class="scene-copy">
                 <p class="scene-meta"><span>第六程</span><span>1935 / 08</span></p>
                 <h3 id="march-title-5">走出草地</h3>
@@ -518,9 +520,9 @@
                   <span><small>拾起记忆碎片</small><strong>一张老照片</strong></span>
                 </button>
               </div>
-            </article>
+            </li>
 
-            <article class="scene-panel scene-panel--left scene-panel--high" data-node="6" aria-labelledby="march-title-6">
+            <li class="scene-panel scene-panel--left scene-panel--high" data-node="6" aria-labelledby="march-title-6">
               <div class="scene-copy">
                 <p class="scene-meta"><span>第七程</span><span>1935 / 10</span></p>
                 <h3 id="march-title-6">抵达吴起镇</h3>
@@ -534,8 +536,8 @@
                 </details>
                 <a class="text-link scene-next" href="#figures">继续认识走过长夜的人</a>
               </div>
-            </article>
-          </div>
+            </li>
+          </ol>
         </div>
 
         <aside class="star-rail" aria-label="星火传递进度">
@@ -560,9 +562,9 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
           </button>
           <div class="journey-progress">
-            <span id="scene-number">01</span>
+            <span id="scene-number">第一程</span>
             <span class="progress-rule"><span id="progress-fill"></span></span>
-            <span>07</span>
+            <span>共七程</span>
           </div>
           <button type="button" class="march-button" id="next-scene" aria-label="前往下一程">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
@@ -572,7 +574,6 @@
 
       <section class="figures" id="figures" data-music="figures" aria-labelledby="figures-title">
         <header class="section-heading">
-          <p class="section-kicker">人物专题 · 八个人的长征</p>
           <h2 id="figures-title">历史不是远处的名字。</h2>
           <p class="section-intro">先读处在历史转折中心的毛泽东，再进入下方的人物走廊。中央领导人、红军将士与普通百姓的片刻，共同组成一条人的长征。</p>
         </header>
@@ -581,14 +582,23 @@
           <p class="sr-only" id="people-selection-status" role="status" aria-live="polite"></p>
           <article class="people-feature" aria-labelledby="people-feature-name">
             <div class="people-feature-intro">
-              <p class="section-kicker">人物档案 · <span id="people-feature-years">1893—1976</span></p>
-              <p class="person-index"><span>当前阅读</span><span id="people-feature-position">01 / 08</span></p>
               <h3 id="people-feature-name">毛泽东</h3>
-              <p class="person-role" id="people-feature-role">中共中央领导人</p>
+              <p class="person-role" id="people-feature-role">中共中央领导人 · 1893—1976</p>
               <p class="person-line" id="people-feature-line">在历史转折处，重新校准前行的方向。</p>
             </div>
             <figure class="people-feature-portrait">
-              <span class="photo-kind" id="people-feature-kind">历史肖像</span>
+              <span class="photo-kind" id="people-feature-kind">历史影像</span>
+              <video
+                id="people-feature-video"
+                poster="assets/video/chairman-mao-1930s-poster.jpg"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-hidden="true"
+              >
+                <source src="assets/video/chairman-mao-1930s.webm" type="video/webm">
+              </video>
               <img
                 id="people-feature-photo"
                 src="assets/people/mao-zedong.jpg"
@@ -596,15 +606,16 @@
                 height="908"
                 decoding="async"
                 alt="毛泽东1950年历史肖像"
+                hidden
               >
               <figcaption>
-                <span id="people-feature-caption">毛泽东历史肖像 · 1950年</span>
-                <a id="people-feature-source" href="https://commons.wikimedia.org/wiki/File:Mao_Zedong_1950_Portrait_(3x4_cropped)(2).jpg" target="_blank" rel="noopener noreferrer">陈正青 · 公有领域</a>
+                <span id="people-feature-caption">1930年代毛泽东历史影像 · 无声</span>
+                <a id="people-feature-source" href="https://commons.wikimedia.org/wiki/File:Chairman_Mao-4.webm" target="_blank" rel="noopener noreferrer">Wikimedia Commons · 公有领域</a>
               </figcaption>
             </figure>
             <div class="people-feature-copy">
               <p class="people-feature-detail" id="people-feature-detail">1935年1月，遵义会议集中解决当时具有决定意义的军事和组织问题，实际确立了毛泽东在中共中央和红军的领导地位。此后，中央红军继续北上。</p>
-              <p class="source-note" id="people-feature-note">历史肖像摄于1950年，并非长征现场照片。</p>
+              <p class="source-note" id="people-feature-note">公共领域历史影像，并非长征现场影像；播放时保持静音。</p>
               <button class="people-reset" id="people-reset" type="button" hidden>回到毛泽东</button>
             </div>
           </article>
@@ -612,7 +623,6 @@
           <div class="people-corridor">
             <div class="people-corridor-toolbar">
               <div>
-                <p class="section-kicker">人物走廊 · 选择停下来阅读</p>
                 <p class="people-auto-state" id="people-auto-state">自动前行 · 悬停暂停</p>
               </div>
               <div class="people-controls">
@@ -632,18 +642,17 @@
               aria-label="人物走廊。使用左右方向键、前后按钮、拖动或横向滑动浏览人物。"
               tabindex="0"
             >
-              <div class="people-track" id="people-track"></div>
+              <ol class="people-track" id="people-track"></ol>
             </div>
-            <p class="people-corridor-note">拖动、横向滑动或使用方向键浏览。自动流动会在悬停、聚焦和操作时暂停。</p>
+              <p class="people-corridor-note">左右拖动或滑动浏览，也可使用方向键和前后按钮。</p>
           </div>
         </div>
       </section>
 
       <section class="spark-wall" id="spark-wall" data-music="spark" aria-labelledby="spark-wall-title">
         <div class="spark-wall-intro">
-          <p class="section-kicker">星火留言 · 传下去</p>
           <h2 id="spark-wall-title">留一束光，<br>给走过黑夜的人。</h2>
-          <p>一句话，不必宏大。它会被安放在这片星火谱里，成为后来者看见的一点光。</p>
+          <p>一句话，不必宏大。每多一句留言，长征路线就会再点亮一颗星；后来者也能看见更远的光。</p>
 
           <form class="spark-form" id="spark-form" novalidate>
             <div class="field">
@@ -670,7 +679,35 @@
         <div class="spark-roster">
           <div class="roster-head">
             <p>星火谱</p>
-            <span><strong id="message-count">0</strong> 束光</span>
+            <div class="roster-metrics" aria-live="polite">
+              <span><strong id="message-count">0</strong> 束光</span>
+              <span>路线 <strong id="spark-progress">0%</strong></span>
+            </div>
+          </div>
+          <div class="spark-progress-track" aria-hidden="true">
+            <span id="spark-progress-fill"></span>
+          </div>
+          <div class="spark-atmosphere" id="spark-atmosphere" aria-hidden="true">
+            <svg class="spark-route" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path
+                id="spark-route-path"
+                pathLength="100"
+                d="M3 91C11 85 13 72 21 72S31 79 36 64 44 53 51 60 60 76 67 62 71 42 79 43 86 33 89 21 94 17 97 9"
+              />
+            </svg>
+            <div class="spark-constellation" id="spark-constellation"></div>
+            <span class="spark-route-place spark-route-place--start">于都河</span>
+            <span class="spark-route-place spark-route-place--end">吴起镇</span>
+          </div>
+          <div class="spark-demo-actions" id="spark-demo-actions" hidden>
+            <button class="spark-demo-action" id="spark-demo-add" type="button">
+              <span id="spark-demo-label">一键增加一束演示星火</span>
+              <span aria-hidden="true">＋1</span>
+            </button>
+            <button class="spark-demo-action spark-demo-action--remove" id="spark-demo-remove" type="button" disabled>
+              <span>减少一束演示星火</span>
+              <span aria-hidden="true">−1</span>
+            </button>
           </div>
           <ol class="message-list" id="message-list">
             <li class="message-item message-item--seed">

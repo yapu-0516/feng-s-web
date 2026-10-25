@@ -2,6 +2,9 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const html = document.documentElement;
+const localPreview = location.protocol === "file:"
+  || location.hostname === "localhost"
+  || location.hostname === "127.0.0.1";
 
 // Inline helpers keep the page functional when index.html is opened directly from disk.
 function clamp(value, min, max) {
@@ -707,6 +710,7 @@ const journeyPlace = $("#journey-place");
 const prevButton = $("#prev-scene");
 const nextButton = $("#next-scene");
 const nodeCount = panels.length;
+const sceneLabels = ["第一程", "第二程", "第三程", "第四程", "第五程", "第六程", "第七程"];
 const placeNames = [
   "瑞金 · 于都河",
   "湘江 · 兴安界首",
@@ -823,7 +827,7 @@ else reduceMotion.addListener(refreshWeatherForMotion);
 function updateSceneUi(index) {
   currentIndex = index;
   maxVisited = Math.max(maxVisited, index);
-  sceneNumber.textContent = String(index + 1).padStart(2, "0");
+  sceneNumber.textContent = sceneLabels[index];
   progressFill.style.width = `${(index / (nodeCount - 1)) * 100}%`;
   journeyPlace.textContent = placeNames[index];
   prevButton.disabled = index === 0;
@@ -1170,15 +1174,15 @@ const people = [
     role: "中共中央领导人",
     line: "在历史转折处，重新校准前行的方向。",
     detail: "1935年1月，遵义会议集中解决当时具有决定意义的军事和组织问题，实际确立了毛泽东在中共中央和红军的领导地位。此后，中央红军继续北上。",
-    note: "历史肖像摄于1950年，并非长征现场照片。",
+    note: "公共领域历史影像，并非长征现场影像；播放时保持静音。",
     image: "assets/people/mao-zedong.jpg",
     width: 673,
     height: 908,
     alt: "毛泽东1950年历史肖像",
-    kind: "历史肖像",
-    caption: "毛泽东历史肖像 · 1950年",
-    credit: "陈正青 · 公有领域",
-    sourceUrl: "https://commons.wikimedia.org/wiki/File:Mao_Zedong_1950_Portrait_(3x4_cropped)(2).jpg",
+    kind: "历史影像",
+    caption: "1930年代毛泽东历史影像 · 无声",
+    credit: "Wikimedia Commons · 公有领域",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Chairman_Mao-4.webm",
   },
   {
     id: "zhou",
@@ -1262,11 +1266,10 @@ const orderedPeople = people.filter((person) => person.id === "mao")
 const corridorPeople = orderedPeople.slice(1);
 const peopleSelectionStatus = $("#people-selection-status");
 const peopleFeaturePhoto = $("#people-feature-photo");
+const peopleFeatureVideo = $("#people-feature-video");
 const peopleFeatureKind = $("#people-feature-kind");
 const peopleFeatureCaption = $("#people-feature-caption");
 const peopleFeatureSource = $("#people-feature-source");
-const peopleFeatureYears = $("#people-feature-years");
-const peopleFeaturePosition = $("#people-feature-position");
 const peopleFeatureName = $("#people-feature-name");
 const peopleFeatureRole = $("#people-feature-role");
 const peopleFeatureLine = $("#people-feature-line");
@@ -1287,18 +1290,27 @@ let peopleFrame = 0;
 let peopleFrameTime = 0;
 let peopleScrollPosition = 0;
 let peopleLoopWidth = 0;
+let peopleFeatureVideoEnabled = false;
+
+function syncPeopleFeatureVideo() {
+  const shouldPlay = peopleFeatureVideoEnabled && peopleInView && !reduceMotion.matches;
+  if (shouldPlay) {
+    peopleFeatureVideo.play().catch(() => {});
+  } else {
+    peopleFeatureVideo.pause();
+  }
+}
 
 function personCardMarkup(person, index, isClone = false) {
   const hidden = isClone ? ' aria-hidden="true" inert' : "";
   return `
-    <article class="people-card" data-person="${person.id}" data-person-index="${index}"${hidden}>
+    <li class="people-card" data-person="${person.id}" data-person-index="${index}"${hidden}>
       <button class="people-card-select" type="button" data-person="${person.id}" data-person-index="${index}" aria-label="查看${person.name}，${person.role}">
         <figure>
           <img src="${person.image}" width="${person.width}" height="${person.height}" loading="lazy" decoding="async" alt="">
           <span class="people-card-kind">${person.kind}</span>
         </figure>
         <span class="people-card-copy">
-          <span class="people-card-number">${String(index + 1).padStart(2, "0")}</span>
           <span class="people-card-heading">
             <strong>${person.name}</strong>
             <small>${person.role}</small>
@@ -1310,10 +1322,10 @@ function personCardMarkup(person, index, isClone = false) {
         <summary>展开档案</summary>
         <div>
           <p>${person.detail}</p>
-          <p class="source-note">${person.note} <a href="${person.sourceUrl}" target="_blank" rel="noopener noreferrer">${person.credit}</a></p>
+          <p>${person.note} <a href="${person.sourceUrl}" target="_blank" rel="noopener noreferrer">${person.credit}</a></p>
         </div>
       </details>
-    </article>`;
+    </li>`;
 }
 
 if (peopleShowcase && peopleTrack && peopleViewport) {
@@ -1326,6 +1338,9 @@ if (peopleShowcase && peopleTrack && peopleViewport) {
     const normalized = (index + orderedPeople.length) % orderedPeople.length;
     const person = orderedPeople[normalized];
     currentPerson = normalized;
+    peopleFeatureVideoEnabled = normalized === 0;
+    peopleFeaturePhoto.hidden = peopleFeatureVideoEnabled;
+    peopleFeatureVideo.hidden = !peopleFeatureVideoEnabled;
     peopleFeaturePhoto.src = person.image;
     peopleFeaturePhoto.width = person.width;
     peopleFeaturePhoto.height = person.height;
@@ -1334,13 +1349,12 @@ if (peopleShowcase && peopleTrack && peopleViewport) {
     peopleFeatureCaption.textContent = person.caption;
     peopleFeatureSource.href = person.sourceUrl;
     peopleFeatureSource.textContent = person.credit;
-    peopleFeatureYears.textContent = person.years;
-    peopleFeaturePosition.textContent = `${String(normalized + 1).padStart(2, "0")} / ${String(orderedPeople.length).padStart(2, "0")}`;
     peopleFeatureName.textContent = person.name;
-    peopleFeatureRole.textContent = person.role;
+    peopleFeatureRole.textContent = `${person.role} · ${person.years}`;
     peopleFeatureLine.textContent = person.line;
     peopleFeatureDetail.textContent = person.detail;
     peopleFeatureNote.textContent = person.note;
+    syncPeopleFeatureVideo();
     peopleReset.hidden = normalized === 0;
     if (announce) peopleSelectionStatus.textContent = `当前阅读${person.name}，${person.role}`;
 
@@ -1402,11 +1416,11 @@ if (peopleShowcase && peopleTrack && peopleViewport) {
     peopleToggle.setAttribute("aria-label", peopleToggle.textContent);
     peopleAutoState.textContent = manualOnly
       ? reduceMotion.matches
-        ? "静态浏览 · 已减少动效"
-        : "手动浏览 · 左右滑动"
+        ? "静态浏览 · 使用前后按钮"
+        : "手动浏览 · 左右滑动或点按箭头"
       : peopleManuallyPaused
-        ? "人物流动已暂停"
-        : "自动前行 · 悬停暂停";
+        ? "浏览已暂停 · 左右拖动"
+        : "自动前行 · 左右拖动或悬停暂停";
   }
 
   function canAutoScrollPeople() {
@@ -1558,6 +1572,7 @@ if (peopleShowcase && peopleTrack && peopleViewport) {
   const refreshPeopleMotionPreference = () => {
     peopleManuallyPaused = false;
     syncPeopleControls();
+    syncPeopleFeatureVideo();
   };
   if (typeof reduceMotion.addEventListener === "function") {
     reduceMotion.addEventListener("change", refreshPeopleMotionPreference);
@@ -1571,6 +1586,7 @@ if (peopleShowcase && peopleTrack && peopleViewport) {
     const peopleObserver = new IntersectionObserver(
       ([entry]) => {
         peopleInView = entry.isIntersecting;
+        syncPeopleFeatureVideo();
       },
       { rootMargin: "-20% 0px -20% 0px", threshold: 0 },
     );
@@ -1735,18 +1751,89 @@ const seedMessages = seedNodes.map((item) => ({
   name: $("div span", item)?.textContent || "策展寄语",
   time: $("time", item)?.textContent || "",
   message: $("p", item)?.textContent || "",
+  likes: 0,
 }));
 const localKey = "longmarch-spark-messages";
+const likedKey = "longmarch-spark-liked";
+const likeDeltaKey = "longmarch-spark-like-deltas";
 const form = $("#spark-form");
 const nameInput = $("#visitor-name");
 const messageInput = $("#spark-message");
 const messageCount = $("#message-count");
+const sparkProgress = $("#spark-progress");
+const sparkProgressFill = $("#spark-progress-fill");
+const sparkDemoActions = $("#spark-demo-actions");
+const sparkDemoButton = $("#spark-demo-add");
+const sparkDemoLabel = $("#spark-demo-label");
+const sparkDemoRemoveButton = $("#spark-demo-remove");
 const characterCount = $("#spark-count");
 const formStatus = $("#spark-status");
 const submitButton = $("#spark-submit");
 const storageNote = $("#storage-note");
+const sparkWall = $("#spark-wall");
+const sparkConstellation = $("#spark-constellation");
+const sparkRoutePath = $("#spark-route-path");
+const sparkRouteLength = sparkRoutePath.getTotalLength();
+const sparkPositions = Array.from({ length: 16 }, (_, index) => {
+  const point = sparkRoutePath.getPointAtLength((index / 15) * sparkRouteLength);
+  return [point.x, point.y];
+});
 let communityMessages = [];
 let serverAvailable = false;
+let renderedSparkCount = 0;
+let sparkIgniteTimer = 0;
+let sparkIsVisible = false;
+let sparkRevealStarted = false;
+let sparkTargetEnergy = 0;
+let sparkTargetStarCount = 0;
+
+function readStringArray(key) {
+  try {
+    const parsed = JSON.parse(storage.get(key) || "[]");
+    return Array.isArray(parsed) ? parsed.filter((item) => typeof item === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function readLikeDeltas() {
+  try {
+    const parsed = JSON.parse(storage.get(likeDeltaKey) || "{}");
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
+    return Object.fromEntries(
+      Object.entries(parsed)
+        .map(([id, count]) => [id, Math.max(0, Math.floor(Number(count) || 0))])
+        .filter(([, count]) => count > 0),
+    );
+  } catch {
+    return {};
+  }
+}
+
+const likedMessageIds = new Set(readStringArray(likedKey));
+const likeDeltas = readLikeDeltas();
+
+function persistLikeState() {
+  return storage.set(likedKey, JSON.stringify([...likedMessageIds]))
+    && storage.set(likeDeltaKey, JSON.stringify(likeDeltas));
+}
+
+function displayedLikeCount(item) {
+  return Math.max(0, Math.floor(Number(item.likes) || 0)) + (likeDeltas[item.id] || 0);
+}
+
+function updateLikeButton(button, item) {
+  const liked = likedMessageIds.has(item.id);
+  const likes = displayedLikeCount(item);
+  button.classList.toggle("is-liked", liked);
+  button.setAttribute("aria-pressed", String(liked));
+  button.setAttribute("aria-disabled", String(liked));
+  button.setAttribute(
+    "aria-label",
+    `${liked ? "已点赞" : "点赞"}，${item.name || "一位后来者"}的留言，当前 ${likes} 个赞`,
+  );
+  $(".message-like-count", button).textContent = String(likes);
+}
 
 function readLocalMessages() {
   try {
@@ -1769,6 +1856,77 @@ function formatTime(value) {
     month: "2-digit",
     day: "2-digit",
   }).format(date);
+}
+
+function revealSparkRoute() {
+  if (sparkRevealStarted || !sparkTargetStarCount) return;
+  sparkRevealStarted = true;
+  sparkRoutePath.style.strokeDasharray = `${(sparkTargetStarCount / sparkPositions.length) * 100} 100`;
+  sparkProgressFill.style.width = `${(sparkTargetStarCount / sparkPositions.length) * 100}%`;
+  sparkWall.style.setProperty("--spark-energy", sparkTargetEnergy.toFixed(3));
+  sparkWall.dataset.sparkRevealed = "true";
+}
+
+if ("IntersectionObserver" in window) {
+  const sparkObserver = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    sparkIsVisible = true;
+    revealSparkRoute();
+    if (sparkRevealStarted) sparkObserver.disconnect();
+  }, { threshold: 0.2 });
+  sparkObserver.observe(sparkWall);
+} else {
+  sparkIsVisible = true;
+}
+
+function updateSparkAtmosphere(messageCount, ignite = false) {
+  const count = Math.max(0, Math.floor(Number(messageCount) || 0));
+  const energy = Math.min(1, Math.log2(count + 1) / Math.log2(26));
+  const level = count >= 25 ? 4 : count >= 10 ? 3 : count >= 4 ? 2 : count >= 1 ? 1 : 0;
+  sparkWall.dataset.sparkLevel = String(level);
+
+  const starCount = Math.min(sparkPositions.length, count);
+  sparkProgress.textContent = `${Math.round((starCount / sparkPositions.length) * 100)}%`;
+  sparkDemoButton.disabled = count >= 25;
+  sparkDemoLabel.textContent = count >= 25
+    ? "路线已完全点亮"
+    : "一键增加一束演示星火";
+  syncDemoActionState();
+  sparkTargetEnergy = energy;
+  sparkTargetStarCount = starCount;
+  if (starCount !== renderedSparkCount) {
+    sparkConstellation.replaceChildren(...sparkPositions.slice(0, starCount).map(([x, y], index) => {
+      const star = document.createElement("span");
+      star.className = "spark-star";
+      star.style.setProperty("--x", `${x}%`);
+      star.style.setProperty("--y", `${y}%`);
+      star.style.setProperty("--size", `${(3.5 + (index / 15) * 4).toFixed(1)}px`);
+      star.style.setProperty("--route-progress", (index / 15).toFixed(3));
+      star.style.setProperty("--reveal-delay", `${index * 34}ms`);
+      star.style.setProperty("--delay", `${-(index * 0.73)}s`);
+      star.style.setProperty("--duration", `${3.8 + (index % 4) * 0.65}s`);
+      return star;
+    }));
+    renderedSparkCount = starCount;
+  }
+
+  if (!sparkRevealStarted) {
+    sparkWall.style.setProperty("--spark-energy", "0");
+    sparkRoutePath.style.strokeDasharray = "0 100";
+    sparkProgressFill.style.width = "0%";
+    if (sparkIsVisible) revealSparkRoute();
+  } else {
+    sparkRoutePath.style.strokeDasharray = `${(starCount / sparkPositions.length) * 100} 100`;
+    sparkProgressFill.style.width = `${(starCount / sparkPositions.length) * 100}%`;
+    sparkWall.style.setProperty("--spark-energy", energy.toFixed(3));
+  }
+
+  if (!ignite || !starCount) return;
+  const newest = sparkConstellation.lastElementChild;
+  window.clearTimeout(sparkIgniteTimer);
+  sparkConstellation.querySelector(".is-ignited")?.classList.remove("is-ignited");
+  newest.classList.add("is-ignited");
+  sparkIgniteTimer = window.setTimeout(() => newest.classList.remove("is-ignited"), 950);
 }
 
 function buildMessageItem(item) {
@@ -1796,22 +1954,148 @@ function buildMessageItem(item) {
   time.textContent = item.time || formatTime(item.createdAt);
   meta.append(author, time);
 
-  listItem.append(ember, copy, meta);
+  const likeButton = document.createElement("button");
+  likeButton.className = "message-like";
+  likeButton.type = "button";
+  likeButton.dataset.messageId = item.id;
+  likeButton.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-3.6-4.2-6-7.3-6-10.5a6 6 0 0 1 12 0C18 13.7 15.6 16.8 12 21Z"/></svg>
+    <span class="message-like-count">0</span>`;
+  updateLikeButton(likeButton, item);
+
+  listItem.append(ember, copy, meta, likeButton);
   return listItem;
 }
 
-function renderMessages(items) {
-  messageList.replaceChildren(...[...items, ...seedMessages].slice(0, 33).map(buildMessageItem));
-  messageCount.textContent = String(Math.min(items.length + seedMessages.length, 33));
+const demoSparkMessages = [
+  "路再远，也要从脚下这一步开始。",
+  "有人记得，走过黑夜的路就不会消失。",
+  "向前的人，也在为后来者留下方向。",
+  "把微小的坚持连起来，就是一条路。",
+  "每一句记住，都是给历史的一次回应。",
+  "今天认真走的路，也会成为明天的来路。",
+  "走得慢没有关系，方向清楚就好。",
+  "先走的人留下光，后来的人接着走。",
+  "真正的抵达，是把这段路继续传下去。",
+  "山高路远，脚步比答案更诚实。",
+  "愿这一点光，陪你走过自己的长征。",
+];
+let demoSparkIndex = readLocalMessages().filter((message) => message.id.startsWith("demo-")).length;
+
+function syncDemoActionState() {
+  const hasDemoMessages = readLocalMessages().some((message) => message.id.startsWith("demo-"));
+  sparkDemoRemoveButton.disabled = !hasDemoMessages;
+  sparkDemoRemoveButton.title = hasDemoMessages
+    ? "撤销最近一条演示星火"
+    : "请先增加一条演示星火";
 }
+
+sparkDemoButton.addEventListener("click", () => {
+  if (sparkDemoButton.disabled) return;
+  const item = {
+    id: `demo-${Date.now()}-${demoSparkIndex}`,
+    name: "演示星火",
+    message: demoSparkMessages[demoSparkIndex % demoSparkMessages.length],
+    createdAt: new Date().toISOString(),
+    isLocal: true,
+  };
+  demoSparkIndex += 1;
+  if (!writeLocalMessages([item, ...readLocalMessages()])) {
+    showToast("演示星火没有保存，请检查浏览器存储权限");
+    return;
+  }
+  communityMessages = [item, ...communityMessages.filter((message) => message.id !== item.id)];
+  renderMessages(communityMessages, { ignite: true });
+  const percent = Math.round(
+    (Math.min(sparkPositions.length, communityMessages.length + seedMessages.length) / sparkPositions.length) * 100,
+  );
+  showToast(`演示星火已点亮，路线推进到 ${percent}%`);
+});
+
+sparkDemoRemoveButton.addEventListener("click", () => {
+  const localMessages = readLocalMessages();
+  const demoIndex = localMessages.findIndex((message) => message.id.startsWith("demo-"));
+  if (demoIndex < 0) return;
+  const [removed] = localMessages.splice(demoIndex, 1);
+  if (!writeLocalMessages(localMessages)) {
+    showToast("演示星火没有收回，请检查浏览器存储权限");
+    return;
+  }
+  demoSparkIndex = Math.max(0, demoSparkIndex - 1);
+  communityMessages = communityMessages.filter((message) => message.id !== removed.id);
+  renderMessages(communityMessages);
+  const percent = Math.round(
+    (Math.min(sparkPositions.length, communityMessages.length + seedMessages.length) / sparkPositions.length) * 100,
+  );
+  showToast(`演示星火已收回，路线回到 ${percent}%`);
+});
+
+function renderMessages(items, { ignite = false } = {}) {
+  const totalMessages = Math.min(items.length + seedMessages.length, 33);
+  messageList.replaceChildren(...[...items, ...seedMessages].slice(0, 33).map(buildMessageItem));
+  messageCount.textContent = String(totalMessages);
+  updateSparkAtmosphere(totalMessages, ignite);
+}
+
+function findMessageById(id) {
+  return communityMessages.find((message) => message.id === id)
+    || seedMessages.find((message) => message.id === id);
+}
+
+async function likeMessage(button) {
+  const id = button.dataset.messageId;
+  const item = findMessageById(id);
+  if (!item || likedMessageIds.has(id) || button.disabled) return;
+
+  button.disabled = true;
+  button.setAttribute("aria-busy", "true");
+
+  try {
+    if (item.isSeed || item.isLocal || !serverAvailable) {
+      likedMessageIds.add(id);
+      likeDeltas[id] = (likeDeltas[id] || 0) + 1;
+      persistLikeState();
+      showToast("点赞已保存在本机");
+      return;
+    }
+
+    const response = await fetchWithTimeout(`/api/messages/${encodeURIComponent(id)}/like`, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || "点赞没有保存，请稍后再试。");
+    item.likes = Math.max(0, Math.floor(Number(result.message?.likes) || 0));
+    likedMessageIds.add(id);
+    delete likeDeltas[id];
+    persistLikeState();
+    showToast("又点亮了一点星火");
+  } catch {
+    likedMessageIds.add(id);
+    likeDeltas[id] = (likeDeltas[id] || 0) + 1;
+    persistLikeState();
+    showToast("网络暂不可用，点赞已保存在本机");
+  } finally {
+    button.disabled = false;
+    button.removeAttribute("aria-busy");
+    updateLikeButton(button, item);
+  }
+}
+
+messageList.addEventListener("click", (event) => {
+  const button = event.target.closest(".message-like");
+  if (button) likeMessage(button);
+});
 
 async function loadMessages() {
   const localMessages = readLocalMessages().map((message) => ({ ...message, isLocal: true }));
   communityMessages = localMessages;
   renderMessages(communityMessages);
 
+  if (localPreview) sparkDemoActions.hidden = false;
+
   if (location.protocol === "file:") {
-    storageNote.textContent = "当前以本地文件打开，留言保存在这台设备；运行 npm start 可使用共享星火墙。";
+    storageNote.textContent = "本地预览：初始显示 3 条策展寄语；新留言只保存在这台设备。";
     return;
   }
 
@@ -1890,7 +2174,7 @@ form.addEventListener("submit", async (event) => {
     }
 
     communityMessages = [item, ...communityMessages.filter((message) => message.id !== item.id)];
-    renderMessages(communityMessages);
+    renderMessages(communityMessages, { ignite: true });
     form.reset();
     characterCount.textContent = "0 / 60";
     formStatus.textContent = "星火已点亮。谢谢你把它传下去。";
@@ -1913,7 +2197,7 @@ form.addEventListener("submit", async (event) => {
       serverAvailable = false;
       storageNote.textContent = "服务器暂不可用，后续留言会先保存在这台设备；恢复连接后刷新页面可继续共享。";
       communityMessages = [item, ...communityMessages];
-      renderMessages(communityMessages);
+      renderMessages(communityMessages, { ignite: true });
       form.reset();
       characterCount.textContent = "0 / 60";
       formStatus.textContent = "网络暂不可用，星火已先保存在这台设备。";

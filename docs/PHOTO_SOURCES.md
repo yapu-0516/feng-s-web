@@ -41,6 +41,16 @@
 - 来源：[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mao_Zedong_1950_Portrait_(3x4_cropped)(2).jpg)
 - 许可：公有领域
 
+### 毛泽东历史动态影像
+
+- 本地文件：`assets/video/chairman-mao-1930s.webm`
+- 封面文件：`assets/video/chairman-mao-1930s-poster.jpg`
+- 画面内容：1930年代毛泽东阅读材料的黑白历史影像，时长约14秒，无原声
+- 作者：佚名
+- 来源：[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Chairman_Mao-4.webm)
+- 许可：公有领域
+- 使用方式：仅在人物专题主档案进入视口时静音循环；切换到其他人物、离开人物区或启用“减少动态效果”时暂停。该影像不是长征现场影像。
+
 ### 周恩来
 
 - 本地文件：`assets/people/zhou-enlai.jpg`

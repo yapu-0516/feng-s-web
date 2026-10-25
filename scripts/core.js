@@ -2,6 +2,10 @@ export function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
+export function normalizeLikeCount(value) {
+  return Math.max(0, Math.floor(Number(value) || 0));
+}
+
 export function scrollToNodePosition(scrollLeft, scrollWidth, clientWidth, nodeCount) {
   if (nodeCount <= 1) return 0;
   const maxScroll = Math.max(0, scrollWidth - clientWidth);

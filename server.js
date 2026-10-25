@@ -4,7 +4,7 @@ import { createReadStream } from "node:fs";
 import { readFile, stat, writeFile } from "node:fs/promises";
 import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { validateMessage } from "./scripts/core.js";
+import { normalizeLikeCount, validateMessage } from "./scripts/core.js";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = join(ROOT, "data", "messages.json");
@@ -30,10 +30,28 @@ const MIME_TYPES = {
 async function readMessages() {
   try {
     const parsed = JSON.parse(await readFile(DATA_FILE, "utf8"));
-    return Array.isArray(parsed) ? parsed : [];
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map((item) => ({
+      ...item,
+      likes: normalizeLikeCount(item.likes),
+    }));
   } catch {
     return [];
   }
+}
+
+async function updateMessages(update) {
+  let result = null;
+  const operation = writeQueue.catch(() => {}).then(async () => {
+    const messages = await readMessages();
+    result = update(messages);
+    if (result === null) return;
+    await writeFile(DATA_FILE, `${JSON.stringify(messages.slice(0, 100), null, 2)}\n`, "utf8");
+  });
+  writeQueue = operation.catch(() => {});
+
+  await operation;
+  return result;
 }
 
 async function saveMessage(value) {
@@ -42,17 +60,21 @@ async function saveMessage(value) {
     name: value.name,
     message: value.message,
     createdAt: new Date().toISOString(),
+    likes: 0,
   };
-
-  const operation = writeQueue.catch(() => {}).then(async () => {
-    const messages = await readMessages();
+  return updateMessages((messages) => {
     messages.unshift(item);
-    await writeFile(DATA_FILE, `${JSON.stringify(messages.slice(0, 100), null, 2)}\n`, "utf8");
+    return item;
   });
-  writeQueue = operation.catch(() => {});
+}
 
-  await operation;
-  return item;
+async function likeMessage(id) {
+  return updateMessages((messages) => {
+    const item = messages.find((message) => message.id === id);
+    if (!item) return null;
+    item.likes = normalizeLikeCount(item.likes) + 1;
+    return item;
+  });
 }
 
 function setSecurityHeaders(response) {
@@ -87,6 +109,21 @@ function readBody(request) {
 }
 
 async function handleApi(request, response, pathname) {
+  const likeMatch = pathname.match(/^\/api\/messages\/([^/]+)\/like$/);
+  if (likeMatch) {
+    if (request.method !== "POST") {
+      sendJson(response, 405, { error: "Method not allowed." });
+      return true;
+    }
+    const item = await likeMessage(likeMatch[1]);
+    if (!item) {
+      sendJson(response, 404, { error: "留言不存在。" });
+      return true;
+    }
+    sendJson(response, 200, { message: item });
+    return true;
+  }
+
   if (pathname !== "/api/messages") return false;
 
   if (request.method === "GET") {

@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import {
   clamp,
   nodeToScrollPosition,
+  normalizeLikeCount,
   scrollToNodePosition,
   validateMessage,
 } from "../scripts/core.js";
@@ -28,6 +29,13 @@ test("node position maps back to the same scene", () => {
   }
 });
 
+test("like counts stay non-negative integers", () => {
+  assert.equal(normalizeLikeCount(), 0);
+  assert.equal(normalizeLikeCount(-3), 0);
+  assert.equal(normalizeLikeCount("4.8"), 4);
+  assert.equal(normalizeLikeCount(12), 12);
+});
+
 test("message validation trims input and fills an anonymous name", () => {
   assert.deepEqual(validateMessage({ name: "  ", message: "  向前走  " }), {
     ok: true,
@@ -46,7 +54,7 @@ test("browser entry works without module resolution", async () => {
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
   const app = await readFile(new URL("../scripts/app.js", import.meta.url), "utf8");
 
-  assert.match(html, /<script defer src="scripts\/app\.js"><\/script>/);
+  assert.match(html, /<script defer src="scripts\/app\.js(?:\?[^"]*)?"><\/script>/);
   assert.doesNotMatch(html, /type="module"/);
   assert.doesNotMatch(app, /^\s*import\s/m);
 });
