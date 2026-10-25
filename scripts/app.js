@@ -1774,8 +1774,8 @@ const sparkWall = $("#spark-wall");
 const sparkConstellation = $("#spark-constellation");
 const sparkRoutePath = $("#spark-route-path");
 const sparkRouteLength = sparkRoutePath.getTotalLength();
-const sparkPositions = Array.from({ length: 16 }, (_, index) => {
-  const point = sparkRoutePath.getPointAtLength((index / 15) * sparkRouteLength);
+const sparkPositions = Array.from({ length: 10 }, (_, index) => {
+  const point = sparkRoutePath.getPointAtLength((index / 9) * sparkRouteLength);
   return [point.x, point.y];
 });
 let communityMessages = [];
@@ -1881,14 +1881,14 @@ if ("IntersectionObserver" in window) {
 
 function updateSparkAtmosphere(messageCount, ignite = false) {
   const count = Math.max(0, Math.floor(Number(messageCount) || 0));
-  const energy = Math.min(1, Math.log2(count + 1) / Math.log2(26));
-  const level = count >= 25 ? 4 : count >= 10 ? 3 : count >= 4 ? 2 : count >= 1 ? 1 : 0;
+  const energy = Math.min(1, Math.log2(count + 1) / Math.log2(11));
+  const level = count >= 10 ? 4 : count >= 7 ? 3 : count >= 4 ? 2 : count >= 1 ? 1 : 0;
   sparkWall.dataset.sparkLevel = String(level);
 
   const starCount = Math.min(sparkPositions.length, count);
   sparkProgress.textContent = `${Math.round((starCount / sparkPositions.length) * 100)}%`;
-  sparkDemoButton.disabled = count >= 25;
-  sparkDemoLabel.textContent = count >= 25
+  sparkDemoButton.disabled = count >= 10;
+  sparkDemoLabel.textContent = count >= 10
     ? "路线已完全点亮"
     : "一键增加一束演示星火";
   syncDemoActionState();
@@ -1897,11 +1897,12 @@ function updateSparkAtmosphere(messageCount, ignite = false) {
   if (starCount !== renderedSparkCount) {
     sparkConstellation.replaceChildren(...sparkPositions.slice(0, starCount).map(([x, y], index) => {
       const star = document.createElement("span");
+      const routeProgress = index / (sparkPositions.length - 1);
       star.className = "spark-star";
       star.style.setProperty("--x", `${x}%`);
       star.style.setProperty("--y", `${y}%`);
-      star.style.setProperty("--size", `${(3.5 + (index / 15) * 4).toFixed(1)}px`);
-      star.style.setProperty("--route-progress", (index / 15).toFixed(3));
+      star.style.setProperty("--size", `${(3.5 + routeProgress * 4).toFixed(1)}px`);
+      star.style.setProperty("--route-progress", routeProgress.toFixed(3));
       star.style.setProperty("--reveal-delay", `${index * 34}ms`);
       star.style.setProperty("--delay", `${-(index * 0.73)}s`);
       star.style.setProperty("--duration", `${3.8 + (index % 4) * 0.65}s`);

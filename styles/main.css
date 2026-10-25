@@ -3470,10 +3470,6 @@ details:not(.scene-depth)[open] summary::before {
     opacity: calc(0.1 + var(--spark-energy) * 0.58);
   }
 
-  .spark-star:nth-child(n + 11) {
-    display: none;
-  }
-
   .spark-form {
     margin-top: var(--space-6);
   }
