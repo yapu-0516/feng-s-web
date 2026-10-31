@@ -53,6 +53,7 @@ npm start
 - 场景插画与界面图标为原创内嵌 SVG；记忆碎片优先使用本地保存的实物照片和历史照片。
 - 人物专题使用真实照片或关联现场照片；来源、作者、许可与修改说明见 `docs/PHOTO_SOURCES.md`。
 - 人物专题主档案包含一段公有领域的1930年代毛泽东无声历史影像；离开视口或切换人物时自动暂停。
+- 历史视频使用 `preload="none"`，封面帧和视频只在人物区进入视口时加载；记忆碎片图片同样按行程懒加载。
 - 动画使用原生 CSS 与 `requestAnimationFrame`，未使用第三方动画库。
 - 字体使用项目内 Noto Sans SC / Noto Serif SC 字符子集，直接打开 HTML 也能保持同一排版；来源与许可见 `docs/FONT_SOURCES.md`。
 - 分页配乐与环境音由 Web Audio API 实时合成，未加载外部音频素材；设计说明见 `docs/MUSIC_DESIGN.md`，完整 ARR-SPEC 见 `docs/MUSIC_ARR_SPEC.yaml`。

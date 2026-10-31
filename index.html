@@ -9,9 +9,9 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230d0b0a'/%3E%3Cpath d='M32 9c3 13 8 18 21 23-13 5-18 10-21 23-3-13-8-18-21-23 13-5 18-10 21-23Z' fill='%23efc67d'/%3E%3C/svg%3E">
     <link rel="preload" href="assets/fonts/noto-sans-sc-site.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="assets/fonts/noto-serif-sc-site.woff" as="font" type="font/woff" crossorigin>
-    <link rel="stylesheet" href="styles/tokens.css?v=20261025-7">
-    <link rel="stylesheet" href="styles/main.css?v=20261025-7">
-    <script defer src="scripts/app.js?v=20261025-7"></script>
+    <link rel="stylesheet" href="styles/tokens.css?v=20261101-1">
+    <link rel="stylesheet" href="styles/main.css?v=20261101-1">
+    <script defer src="scripts/app.js?v=20261101-1"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -437,7 +437,7 @@
                 </details>
                 <button class="fragment-trigger" type="button" data-fragment="bugle" aria-haspopup="dialog">
                   <span class="fragment-glyph" aria-hidden="true">
-                    <img src="assets/fragments/period-bugle.jpg" alt="" width="1280" height="675">
+                    <img src="assets/fragments/period-bugle.jpg" alt="" width="1280" height="675" loading="lazy" decoding="async">
                   </span>
                   <span><small>拾起记忆碎片</small><strong>旧号角</strong></span>
                 </button>
@@ -458,7 +458,7 @@
                 </details>
                 <button class="fragment-trigger" type="button" data-fragment="letter" aria-haspopup="dialog">
                   <span class="fragment-glyph" aria-hidden="true">
-                    <img src="assets/fragments/red-army-family-mail.jpg" alt="" width="1280" height="853">
+                    <img src="assets/fragments/red-army-family-mail.jpg" alt="" width="1280" height="853" loading="lazy" decoding="async">
                   </span>
                   <span><small>拾起记忆碎片</small><strong>一封家书</strong></span>
                 </button>
@@ -494,7 +494,7 @@
                 </details>
                 <button class="fragment-trigger" type="button" data-fragment="straw-shoes" aria-haspopup="dialog">
                   <span class="fragment-glyph" aria-hidden="true">
-                    <img src="assets/fragments/red-army-straw-shoes.jpg" alt="" width="1280" height="960">
+                    <img src="assets/fragments/red-army-straw-shoes.jpg" alt="" width="1280" height="960" loading="lazy" decoding="async">
                   </span>
                   <span><small>拾起记忆碎片</small><strong>一双草鞋</strong></span>
                 </button>
@@ -515,7 +515,7 @@
                 </details>
                 <button class="fragment-trigger" type="button" data-fragment="photo" aria-haspopup="dialog">
                   <span class="fragment-glyph" aria-hidden="true">
-                    <img src="assets/fragments/red-sixth-army-group-1935.jpg" alt="" width="698" height="357">
+                    <img src="assets/fragments/red-sixth-army-group-1935.jpg" alt="" width="698" height="357" loading="lazy" decoding="async">
                   </span>
                   <span><small>拾起记忆碎片</small><strong>一张老照片</strong></span>
                 </button>
@@ -590,11 +590,11 @@
               <span class="photo-kind" id="people-feature-kind">历史影像</span>
               <video
                 id="people-feature-video"
-                poster="assets/video/chairman-mao-1930s-poster.jpg"
+                data-poster="assets/video/chairman-mao-1930s-poster.jpg"
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                preload="none"
                 aria-hidden="true"
               >
                 <source src="assets/video/chairman-mao-1930s.webm" type="video/webm">
@@ -606,7 +606,7 @@
                 height="908"
                 decoding="async"
                 alt="毛泽东1950年历史肖像"
-                hidden
+                loading="lazy"
               >
               <figcaption>
                 <span id="people-feature-caption">1930年代毛泽东历史影像 · 无声</span>

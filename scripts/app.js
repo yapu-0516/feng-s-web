@@ -1267,6 +1267,7 @@ const corridorPeople = orderedPeople.slice(1);
 const peopleSelectionStatus = $("#people-selection-status");
 const peopleFeaturePhoto = $("#people-feature-photo");
 const peopleFeatureVideo = $("#people-feature-video");
+const peopleFeatureVideoPoster = peopleFeatureVideo.dataset.poster;
 const peopleFeatureKind = $("#people-feature-kind");
 const peopleFeatureCaption = $("#people-feature-caption");
 const peopleFeatureSource = $("#people-feature-source");
@@ -1295,6 +1296,10 @@ let peopleFeatureVideoEnabled = false;
 function syncPeopleFeatureVideo() {
   const shouldPlay = peopleFeatureVideoEnabled && peopleInView && !reduceMotion.matches;
   if (shouldPlay) {
+    if (!peopleFeatureVideo.getAttribute("poster")) {
+      peopleFeatureVideo.poster = peopleFeatureVideoPoster;
+    }
+    peopleFeatureVideo.preload = "metadata";
     peopleFeatureVideo.play().catch(() => {});
   } else {
     peopleFeatureVideo.pause();
